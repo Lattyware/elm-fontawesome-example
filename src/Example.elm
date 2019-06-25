@@ -281,6 +281,7 @@ view model =
         [ Html.div []
             -- First we include the CSS for FontAwesome, so the icons render correctly.
             [ Icon.css
+            , Html.h1 [] [ Html.a [ HtmlA.href "https://github.com/Lattyware/elm-fontawesome" ] [ Html.text "elm-fontawesome" ] ]
             , simpleExamples
             , sizingIcons
             , fixedWidthIcons

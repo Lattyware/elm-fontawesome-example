@@ -9,4 +9,4 @@ ssh-add ./elm-fontawesome-example-deploy-key
 git config --global user.name "Gareth Latty"
 git config --global user.email "gareth@lattyware.co.uk"
 
-npx gh-pages -d build/ -b gh-pages -r "git@github.com:${TRAVIS_REPO_SLUG}.git"
+npx gh-pages -d dist/ -b gh-pages -r "git@github.com:${TRAVIS_REPO_SLUG}.git"
