@@ -1,5 +1,8 @@
 module Example exposing (main)
 
+-- FontAwesome Pro users can also get pro icons with a custom build.
+--import FontAwesome.Duotone as Duotone
+
 import Browser
 import FontAwesome.Attributes as Icon
 import FontAwesome.Brands as Icon
@@ -7,11 +10,14 @@ import FontAwesome.Icon as Icon exposing (Icon)
 import FontAwesome.Layering as Icon
 import FontAwesome.Solid as Icon
 import FontAwesome.Styles as Icon
+import FontAwesome.Svg as SvgIcon
 import FontAwesome.Transforms as Icon
 import Html exposing (Html)
 import Html.Attributes as HtmlA
 import Random
 import RandomIds
+import Svg
+import Svg.Attributes as SvgA
 import Time
 
 
@@ -24,20 +30,20 @@ simpleExamples =
     exampleSection "Simple Examples"
         -- A simple icon can be rendered with Icon.view.
         [ Html.div []
-            [ Icon.arrowAltCircleRight |> Icon.present |> Icon.view
+            [ Icon.viewIcon Icon.arrowAltCircleRight
             , Html.text " Go!"
             ]
 
         -- We can apply FontAwesome styles to the icons.
         , Html.div []
-            [ Icon.spinner |> Icon.present |> Icon.styled [ Icon.spin ] |> Icon.view
+            [ Icon.viewStyled [ Icon.spin ] Icon.spinner
             , Html.text " Loading..."
             ]
 
         -- Including stacking, although take a look further down for layering—it can do the same thing and a lot more!
         , Html.div [ Icon.stack, Icon.fa2x ]
-            [ Icon.camera |> Icon.present |> Icon.styled [ Icon.stack1x ] |> Icon.view
-            , Icon.ban |> Icon.present |> Icon.styled [ Icon.stack2x, HtmlA.style "color" "Tomato" ] |> Icon.view
+            [ Icon.viewStyled [ Icon.stack1x ] Icon.camera
+            , Icon.viewStyled [ Icon.stack2x, HtmlA.style "color" "Tomato" ] Icon.ban
             ]
         ]
 
@@ -237,6 +243,42 @@ randomIds randomIcons =
 
 
 
+-- SVG
+
+
+svgIcons =
+    exampleSection "Icons in an existing SVG element."
+        [ Svg.svg [ SvgA.viewBox "0 0 512 512", SvgA.style "width: 150px; height: 150px;" ]
+            [ SvgIcon.viewIcon Icon.pencilAlt ]
+        ]
+
+
+
+-- If you have FontAwesome Pro, you can use the Duotone icons.
+-- Note some workarounds are required as Elm doesn't properly support CSS custom properties.
+-- https://github.com/elm/html/issues/177
+--duotone =
+--    exampleSection "Duotone"
+--        [ Html.div [ Icon.fa3x ]
+--            [ Duotone.camera |> Icon.viewIcon
+--            , Duotone.camera |> Icon.viewStyled [ Icon.swapOpacity ]
+--            , Duotone.fireAlt |> Icon.viewIcon
+--            , Duotone.fireAlt |> Icon.viewStyled [ Icon.swapOpacity ]
+--            , Duotone.busAlt |> Icon.viewIcon
+--            , Duotone.busAlt |> Icon.viewStyled [ Icon.swapOpacity ]
+--            ]
+--        , Html.div [ Icon.fa3x ] duotoneOpacity
+--        , Html.div [ Icon.fa3x ]
+--            [ Duotone.crow |> Icon.viewStyled [ HtmlA.attribute "style" "--fa-secondary-opacity: 1.0; --fa-primary-color: dodgerblue; --fa-secondary-color: gold;" ] ]
+--        ]
+--
+--
+--duotoneOpacity =
+--    [ 0.2, 0.4, 0.6, 0.8, 1 ] |> List.map (\o -> Duotone.busAlt |> Icon.viewStyled [ opacity "secondary" o ])
+--
+--
+--opacity path o =
+--    HtmlA.attribute "style" ("--fa-" ++ path ++ "-opacity: " ++ String.fromFloat o)
 -- Helpers for the examples.
 
 
@@ -290,6 +332,9 @@ view model =
             , layeringTextAndCounters
             , masking
             , randomIds model
+            , svgIcons
+
+            --            , duotone
             ]
         ]
     }
