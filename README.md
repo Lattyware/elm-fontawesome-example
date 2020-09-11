@@ -4,6 +4,6 @@ This repo contains an example of [the `elm-fontawesome` library][elm-fontawesome
 
 [elm-fontawesome]: https://github.com/Lattyware/elm-fontawesome
 
-The example is a simple static elm page, so you can see [a live version of it here][live].
+You probably just want to take a look at `src/Example.elm` it is a simple static elm page, so you can see [a live version of it here][live].
 
 [live]: https://lattyware.github.io/elm-fontawesome-example/
