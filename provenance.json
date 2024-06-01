@@ -1,0 +1,1028 @@
+{
+  "_type": "https://in-toto.io/Statement/v0.1",
+  "predicateType": "https://slsa.dev/provenance/v0.2",
+  "subject": [
+    {
+      "name": "example.js",
+      "digest": {
+        "sha256": "d43b29460dd595e894a768dcecf3ceaceb24b1a3be5349f49cf7dc649a079b40"
+      }
+    },
+    {
+      "name": "index.html",
+      "digest": {
+        "sha256": "f78033be7b22fab14bbf5f5b1e8376333b8dbafdc79ed4f947c3d3823bd95851"
+      }
+    }
+  ],
+  "predicate": {
+    "builder": {
+      "id": "https://github.com/Lattyware/elm-fontawesome/actions/runs/9332100593"
+    },
+    "buildType": "https://mobyproject.org/buildkit@v1",
+    "materials": [
+      {
+        "uri": "pkg:docker/alpine@latest?platform=linux%2Famd64",
+        "digest": {
+          "sha256": "77726ef6b57ddf65bb551896826ec38bc3e53f75cdde31354fbffb4f25238ebd"
+        }
+      },
+      {
+        "uri": "https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz",
+        "digest": {
+          "sha256": "e44af52bb27f725a973478e589d990a6428e115fe1bb14f03833134d6c0f155c"
+        }
+      }
+    ],
+    "invocation": {
+      "configSource": {
+        "entryPoint": "Dockerfile"
+      },
+      "parameters": {
+        "frontend": "dockerfile.v0",
+        "args": {
+          "build-arg:ELM_FONTAWESOME_PACKAGE": "lattyware/elm-fontawesome",
+          "build-arg:ELM_FONTAWESOME_SOURCE": "package",
+          "context:fontawesome": "local:fontawesome",
+          "frontend.caps": "moby.buildkit.frontend.contexts+forward"
+        },
+        "locals": [
+          {
+            "name": "context"
+          },
+          {
+            "name": "dockerfile"
+          },
+          {
+            "name": "fontawesome"
+          }
+        ]
+      },
+      "environment": {
+        "platform": "linux/amd64"
+      }
+    },
+    "buildConfig": {
+      "llbDefinition": [
+        {
+          "id": "step0",
+          "op": {
+            "Op": {
+              "source": {
+                "identifier": "local://context",
+                "attrs": {
+                  "local.excludepatterns": "[\"node_modules\",\"elm-stuff\",\"dist\"]",
+                  "local.sharedkeyhint": "context"
+                }
+              }
+            },
+            "constraints": {}
+          }
+        },
+        {
+          "id": "step1",
+          "op": {
+            "Op": {
+              "file": {
+                "actions": [
+                  {
+                    "input": -1,
+                    "secondaryInput": 0,
+                    "output": 0,
+                    "Action": {
+                      "copy": {
+                        "src": "/assets",
+                        "dest": "/.",
+                        "mode": -1,
+                        "followSymlink": true,
+                        "dirCopyContents": true,
+                        "createDestPath": true,
+                        "allowWildcard": true,
+                        "allowEmptyWildcard": true,
+                        "timestamp": -1
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step0:0"
+          ]
+        },
+        {
+          "id": "step2",
+          "op": {
+            "Op": {
+              "source": {
+                "identifier": "docker-image://docker.io/library/alpine:latest@sha256:77726ef6b57ddf65bb551896826ec38bc3e53f75cdde31354fbffb4f25238ebd",
+                "attrs": {
+                  "image.resolvemode": "pull"
+                }
+              }
+            },
+            "platform": {
+              "Architecture": "amd64",
+              "OS": "linux"
+            },
+            "constraints": {}
+          }
+        },
+        {
+          "id": "step3",
+          "op": {
+            "Op": {
+              "file": {
+                "actions": [
+                  {
+                    "input": 0,
+                    "secondaryInput": -1,
+                    "output": 0,
+                    "Action": {
+                      "mkdir": {
+                        "path": "/elm",
+                        "mode": 493,
+                        "makeParents": true,
+                        "timestamp": -1
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step2:0"
+          ]
+        },
+        {
+          "id": "step4",
+          "op": {
+            "Op": {
+              "exec": {
+                "meta": {
+                  "args": [
+                    "/bin/sh",
+                    "-c",
+                    "apk add --no-cache jq moreutils"
+                  ],
+                  "env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "ELM_VERSION=0.19.1"
+                  ],
+                  "cwd": "/elm",
+                  "removeMountStubsRecursive": true
+                },
+                "mounts": [
+                  {
+                    "input": 0,
+                    "dest": "/",
+                    "output": 0
+                  },
+                  {
+                    "input": -1,
+                    "dest": "/etc/apk/cache",
+                    "output": -1,
+                    "mountType": 3,
+                    "cacheOpt": {
+                      "ID": "//etc/apk/cache",
+                      "sharing": 2
+                    }
+                  }
+                ]
+              }
+            },
+            "platform": {
+              "Architecture": "amd64",
+              "OS": "linux"
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step3:0"
+          ]
+        },
+        {
+          "id": "step5",
+          "op": {
+            "Op": {
+              "source": {
+                "identifier": "https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz",
+                "attrs": {
+                  "http.filename": "binary-for-linux-64-bit.gz"
+                }
+              }
+            },
+            "constraints": {}
+          }
+        },
+        {
+          "id": "step6",
+          "op": {
+            "Op": {
+              "file": {
+                "actions": [
+                  {
+                    "input": -1,
+                    "secondaryInput": 0,
+                    "output": 0,
+                    "Action": {
+                      "copy": {
+                        "src": "/binary-for-linux-64-bit.gz",
+                        "dest": "/elm/elm.gz",
+                        "mode": -1,
+                        "createDestPath": true,
+                        "timestamp": -1
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step5:0"
+          ]
+        },
+        {
+          "id": "step7",
+          "op": {
+            "Op": {
+              "merge": {
+                "inputs": [
+                  {
+                    "input": 0
+                  },
+                  {
+                    "input": 1
+                  }
+                ]
+              }
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step4:0",
+            "step6:0"
+          ]
+        },
+        {
+          "id": "step8",
+          "op": {
+            "Op": {
+              "exec": {
+                "meta": {
+                  "args": [
+                    "/bin/sh",
+                    "-c",
+                    "gunzip elm.gz \u0026\u0026   chmod +x elm \u0026\u0026   mkdir -p \"/elm/${ELM_VERSION}/bin\" \u0026\u0026   mv elm \"/elm/${ELM_VERSION}/bin/elm\""
+                  ],
+                  "env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "ELM_VERSION=0.19.1"
+                  ],
+                  "cwd": "/elm",
+                  "removeMountStubsRecursive": true
+                },
+                "mounts": [
+                  {
+                    "input": 0,
+                    "dest": "/",
+                    "output": 0
+                  }
+                ]
+              }
+            },
+            "platform": {
+              "Architecture": "amd64",
+              "OS": "linux"
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step7:0"
+          ]
+        },
+        {
+          "id": "step9",
+          "op": {
+            "Op": {
+              "exec": {
+                "meta": {
+                  "args": [
+                    "/bin/sh",
+                    "-c",
+                    "[[ \"$(elm --version)\" == \"${ELM_VERSION}\" ]] \u0026\u0026 echo \"Elm ${ELM_VERSION} installed.\" || exit 1"
+                  ],
+                  "env": [
+                    "ELM_VERSION=0.19.1",
+                    "PATH=/elm/0.19.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                  ],
+                  "cwd": "/elm",
+                  "removeMountStubsRecursive": true
+                },
+                "mounts": [
+                  {
+                    "input": 0,
+                    "dest": "/",
+                    "output": 0
+                  }
+                ]
+              }
+            },
+            "platform": {
+              "Architecture": "amd64",
+              "OS": "linux"
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step8:0"
+          ]
+        },
+        {
+          "id": "step10",
+          "op": {
+            "Op": {
+              "file": {
+                "actions": [
+                  {
+                    "input": 0,
+                    "secondaryInput": -1,
+                    "output": 0,
+                    "Action": {
+                      "mkdir": {
+                        "path": "/build",
+                        "mode": 493,
+                        "makeParents": true,
+                        "timestamp": -1
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step9:0"
+          ]
+        },
+        {
+          "id": "step11",
+          "op": {
+            "Op": {
+              "file": {
+                "actions": [
+                  {
+                    "input": -1,
+                    "secondaryInput": 0,
+                    "output": 0,
+                    "Action": {
+                      "copy": {
+                        "src": "/",
+                        "dest": "/build/",
+                        "mode": -1,
+                        "followSymlink": true,
+                        "dirCopyContents": true,
+                        "createDestPath": true,
+                        "allowWildcard": true,
+                        "allowEmptyWildcard": true,
+                        "timestamp": -1
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step0:0"
+          ]
+        },
+        {
+          "id": "step12",
+          "op": {
+            "Op": {
+              "merge": {
+                "inputs": [
+                  {
+                    "input": 0
+                  },
+                  {
+                    "input": 1
+                  }
+                ]
+              }
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step10:0",
+            "step11:0"
+          ]
+        },
+        {
+          "id": "step13",
+          "op": {
+            "Op": {
+              "exec": {
+                "meta": {
+                  "args": [
+                    "/bin/sh",
+                    "-c",
+                    "jq '.\"source-directories\" -= [\"lib\"]' elm.json | sponge elm.json \u0026\u0026   jq 'del(.dependencies.direct.\"lattyware/elm-fontawesome\")' elm.json | sponge elm.json"
+                  ],
+                  "env": [
+                    "ELM_VERSION=0.19.1",
+                    "PATH=/elm/0.19.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                  ],
+                  "cwd": "/build",
+                  "removeMountStubsRecursive": true
+                },
+                "mounts": [
+                  {
+                    "input": 0,
+                    "dest": "/",
+                    "output": 0
+                  }
+                ]
+              }
+            },
+            "platform": {
+              "Architecture": "amd64",
+              "OS": "linux"
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step12:0"
+          ]
+        },
+        {
+          "id": "step14",
+          "op": {
+            "Op": {
+              "exec": {
+                "meta": {
+                  "args": [
+                    "/bin/sh",
+                    "-c",
+                    "echo Y | elm install \"${ELM_FONTAWESOME_PACKAGE}\""
+                  ],
+                  "env": [
+                    "ELM_VERSION=0.19.1",
+                    "PATH=/elm/0.19.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "ELM_FONTAWESOME_PACKAGE=lattyware/elm-fontawesome"
+                  ],
+                  "cwd": "/build",
+                  "removeMountStubsRecursive": true
+                },
+                "mounts": [
+                  {
+                    "input": 0,
+                    "dest": "/",
+                    "output": 0
+                  }
+                ]
+              }
+            },
+            "platform": {
+              "Architecture": "amd64",
+              "OS": "linux"
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step13:0"
+          ]
+        },
+        {
+          "id": "step15",
+          "op": {
+            "Op": {
+              "exec": {
+                "meta": {
+                  "args": [
+                    "elm",
+                    "make",
+                    "src/Example.elm",
+                    "--optimize",
+                    "--output=dist/example.js"
+                  ],
+                  "env": [
+                    "ELM_VERSION=0.19.1",
+                    "ELM_FONTAWESOME_PACKAGE=lattyware/elm-fontawesome",
+                    "PATH=/elm/0.19.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                  ],
+                  "cwd": "/build",
+                  "removeMountStubsRecursive": true
+                },
+                "mounts": [
+                  {
+                    "input": 0,
+                    "dest": "/",
+                    "output": 0
+                  }
+                ]
+              }
+            },
+            "platform": {
+              "Architecture": "amd64",
+              "OS": "linux"
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step14:0"
+          ]
+        },
+        {
+          "id": "step16",
+          "op": {
+            "Op": {
+              "file": {
+                "actions": [
+                  {
+                    "input": -1,
+                    "secondaryInput": 0,
+                    "output": 0,
+                    "Action": {
+                      "copy": {
+                        "src": "/build/dist",
+                        "dest": "/.",
+                        "mode": -1,
+                        "followSymlink": true,
+                        "dirCopyContents": true,
+                        "createDestPath": true,
+                        "allowWildcard": true,
+                        "allowEmptyWildcard": true,
+                        "timestamp": -1
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step15:0"
+          ]
+        },
+        {
+          "id": "step17",
+          "op": {
+            "Op": {
+              "merge": {
+                "inputs": [
+                  {
+                    "input": 0
+                  },
+                  {
+                    "input": 1
+                  }
+                ]
+              }
+            },
+            "constraints": {}
+          },
+          "inputs": [
+            "step1:0",
+            "step16:0"
+          ]
+        },
+        {
+          "id": "step18",
+          "op": {
+            "Op": null
+          },
+          "inputs": [
+            "step17:0"
+          ]
+        }
+      ],
+      "digestMapping": {
+        "sha256:04e2d44979a5fbeec2ec03e0e29ef99c289af2c5e3a157197c9d2dc546fc2b55": "step2",
+        "sha256:13d6bf34a0d6a25100759bea1e09c2853504c87bf15ad27a2489c441ef0018ff": "step10",
+        "sha256:21fb3162843e0e392304917a7e0b56d7128b8901379e4d8345602c551c1426fb": "step1",
+        "sha256:25cc96605f4e6927e890b6cc721f69f87e85b15dd579b9d784c761f60ff174c4": "step12",
+        "sha256:29cb231f8242370cd03a4a635119508cfb4dcd22c6a2c89850a0b660fde08de4": "step9",
+        "sha256:2dc82aa8b6e980874d722b71739b155376e2d1363e31f9f50f537e61e1f8f3f8": "step8",
+        "sha256:443f7b63ef6859a2e62c1fe28dab1663e61be466c19f5205d4e0e542bcb6a849": "step5",
+        "sha256:48da0f6b79e3d253d518d869cc0dd9df0f6fa2d704b20167677c7f08a83c2c77": "step4",
+        "sha256:5b6af6907a2b5303f1a3557da121230142ec3b776b87a8c546adfc4b4ce26b25": "step3",
+        "sha256:62b55b16b7f4e0004acc7c8c2df72b4be1c5a62e6fa55c23a785c0b28fe461ac": "step16",
+        "sha256:6c68a65f529fccd02882638736037bfd03e03a4b9d2f44fcdc6fa1bf65d2c7e5": "step17",
+        "sha256:6c9fdede68217974e185bc27205669a51337b00eeb2c6e603d9b1bd018c3fb73": "step11",
+        "sha256:82b68b490c0fa522d7fccb8da72c1fda5d52e5de6e70598499717909d4c6e9fd": "step18",
+        "sha256:95374468c2342ceda140b438491d2c6122a5e0337eb7bf6c91fb0fe26e9d0482": "step6",
+        "sha256:9f0e70fc10159ce3a4745bfbb3a046fa4f62ec21a55d6c58728470cc4c401588": "step13",
+        "sha256:a7aa5f5904397ecf6693e2321592f50159b0ff24f2b0632e6fda4b787414eeda": "step7",
+        "sha256:ae54387c8be95aba8799069f939067fefd8a9f864de024ab1346f577774d8e13": "step0",
+        "sha256:e446c71c819c027d129dee2efb7b1524e73052400400549bea97489da430c721": "step14",
+        "sha256:ffc107cb5801f8ec90ed54788e8e000e2e934cf13bfb43b7307027a5c287358c": "step15"
+      }
+    },
+    "metadata": {
+      "buildInvocationID": "54eoq5qbqj3jwyvwpsedudgmv",
+      "buildStartedOn": "2024-06-01T17:45:49.687427289Z",
+      "buildFinishedOn": "2024-06-01T17:45:54.537799219Z",
+      "completeness": {
+        "parameters": true,
+        "environment": true,
+        "materials": false
+      },
+      "reproducible": false,
+      "https://mobyproject.org/buildkit@v1#metadata": {
+        "vcs": {
+          "localdir:context": "example",
+          "localdir:dockerfile": "example",
+          "localdir:fontawesome": ".",
+          "revision": "75b507688183c31b2ffe023165095862d4cf7651",
+          "source": "https://github.com/Lattyware/elm-fontawesome"
+        },
+        "source": {
+          "locations": {
+            "step0": {},
+            "step1": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 63
+                      },
+                      "end": {
+                        "line": 63
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step10": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 28
+                      },
+                      "end": {
+                        "line": 28
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step11": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 30
+                      },
+                      "end": {
+                        "line": 30
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step12": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 30
+                      },
+                      "end": {
+                        "line": 30
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step13": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 31
+                      },
+                      "end": {
+                        "line": 31
+                      }
+                    },
+                    {
+                      "start": {
+                        "line": 32
+                      },
+                      "end": {
+                        "line": 32
+                      }
+                    },
+                    {
+                      "start": {
+                        "line": 33
+                      },
+                      "end": {
+                        "line": 33
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step14": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 51
+                      },
+                      "end": {
+                        "line": 51
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step15": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 57
+                      },
+                      "end": {
+                        "line": 57
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step16": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 64
+                      },
+                      "end": {
+                        "line": 64
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step17": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 64
+                      },
+                      "end": {
+                        "line": 64
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step2": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 6
+                      },
+                      "end": {
+                        "line": 6
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step3": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 10
+                      },
+                      "end": {
+                        "line": 10
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step4": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 12
+                      },
+                      "end": {
+                        "line": 12
+                      }
+                    },
+                    {
+                      "start": {
+                        "line": 13
+                      },
+                      "end": {
+                        "line": 13
+                      }
+                    },
+                    {
+                      "start": {
+                        "line": 14
+                      },
+                      "end": {
+                        "line": 14
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step5": {},
+            "step6": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 16
+                      },
+                      "end": {
+                        "line": 16
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step7": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 16
+                      },
+                      "end": {
+                        "line": 16
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step8": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 18
+                      },
+                      "end": {
+                        "line": 18
+                      }
+                    },
+                    {
+                      "start": {
+                        "line": 19
+                      },
+                      "end": {
+                        "line": 19
+                      }
+                    },
+                    {
+                      "start": {
+                        "line": 20
+                      },
+                      "end": {
+                        "line": 20
+                      }
+                    },
+                    {
+                      "start": {
+                        "line": 21
+                      },
+                      "end": {
+                        "line": 21
+                      }
+                    },
+                    {
+                      "start": {
+                        "line": 22
+                      },
+                      "end": {
+                        "line": 22
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "step9": {
+              "locations": [
+                {
+                  "ranges": [
+                    {
+                      "start": {
+                        "line": 26
+                      },
+                      "end": {
+                        "line": 26
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "infos": [
+            {
+              "filename": "Dockerfile",
+              "language": "Dockerfile",
+              "data": "QVJHIEVMTV9WRVJTSU9OPTAuMTkuMQpBUkcgRUxNX0ZPTlRBV0VTT01FX1NPVVJDRT1jb250ZXh0CkFSRyBFTE1fRk9OVEFXRVNPTUVfUEFDS0FHRT1sYXR0eXdhcmUvZWxtLWZvbnRhd2Vzb21lCgoKRlJPTSBhbHBpbmUgQVMgYmFzZQoKQVJHIEVMTV9WRVJTSU9OCgpXT1JLRElSICIvZWxtIgoKUlVOIFwKICAtLW1vdW50PXR5cGU9Y2FjaGUsc2hhcmluZz1sb2NrZWQsdGFyZ2V0PS9ldGMvYXBrL2NhY2hlIFwKICBhcGsgYWRkIC0tbm8tY2FjaGUganEgbW9yZXV0aWxzCgpBREQgLS1saW5rIGh0dHBzOi8vZ2l0aHViLmNvbS9lbG0vY29tcGlsZXIvcmVsZWFzZXMvZG93bmxvYWQvJHtFTE1fVkVSU0lPTn0vYmluYXJ5LWZvci1saW51eC02NC1iaXQuZ3ogL2VsbS9lbG0uZ3oKClJVTiBcCiAgZ3VuemlwIGVsbS5neiAmJiBcCiAgY2htb2QgK3ggZWxtICYmIFwKICBta2RpciAtcCAiL2VsbS8ke0VMTV9WRVJTSU9OfS9iaW4iICYmIFwKICBtdiBlbG0gIi9lbG0vJHtFTE1fVkVSU0lPTn0vYmluL2VsbSIKCkVOViBQQVRIPS9lbG0vJHtFTE1fVkVSU0lPTn0vYmluOiR7UEFUSH0KClJVTiBbWyAiJChlbG0gLS12ZXJzaW9uKSIgPT0gIiR7RUxNX1ZFUlNJT059IiBdXSAmJiBlY2hvICJFbG0gJHtFTE1fVkVSU0lPTn0gaW5zdGFsbGVkLiIgfHwgZXhpdCAxCgpXT1JLRElSICIvYnVpbGQiCgpDT1BZIC0tbGluayBbICIuIiwgIi4iIF0KUlVOIFwKICBqcSAnLiJzb3VyY2UtZGlyZWN0b3JpZXMiIC09IFsibGliIl0nIGVsbS5qc29uIHwgc3BvbmdlIGVsbS5qc29uICYmIFwKICBqcSAnZGVsKC5kZXBlbmRlbmNpZXMuZGlyZWN0LiJsYXR0eXdhcmUvZWxtLWZvbnRhd2Vzb21lIiknIGVsbS5qc29uIHwgc3BvbmdlIGVsbS5qc29uCgoKIyBUaGlzIGlzIHJlcGxhY2VkIHdpdGggYSBjb250ZXh0IHdoZW4gdGhpcyBpcyBiYWtlZC4KRlJPTSBzY3JhdGNoIGFzIGZvbnRhd2Vzb21lCgoKIyBVc2UgYSBjb3B5IG9mIGZvbnRhd2Vzb21lIHN1cHBsaWVkIGJ5IHRoZSBjb250ZXh0LgpGUk9NIGJhc2UgYXMgY29udGV4dAoKQ09QWSAtLWxpbmsgLS1mcm9tPWZvbnRhd2Vzb21lIFsgIi9zcmMvLiIsICJsaWIvLiIgXQpSVU4ganEgJy4ic291cmNlLWRpcmVjdG9yaWVzIiArPSBbImxpYiJdJyBlbG0uanNvbiB8IHNwb25nZSBlbG0uanNvbgoKCiMgVXNlcyBhIGNvcHkgb2YgZm9udGF3ZXNvbWUgc3VwcGxpZWQgYnkgdGhlIGVsbSBwYWNrYWdlIG1hbmFnZXIuCkZST00gYmFzZSBhcyBwYWNrYWdlCgpBUkcgRUxNX0ZPTlRBV0VTT01FX1BBQ0tBR0UKUlVOIGVjaG8gWSB8IGVsbSBpbnN0YWxsICIke0VMTV9GT05UQVdFU09NRV9QQUNLQUdFfSIKCgojIFRoaXMgc2VsZWN0cyBmcm9tIGVpdGhlciBjb250ZXh0IG9yIHBhY2thZ2UgYW5kIGJ1aWxkcy4KRlJPTSAke0VMTV9GT05UQVdFU09NRV9TT1VSQ0V9IGFzIGJ1aWxkCgpSVU4gWyJlbG0iLCAibWFrZSIsICJzcmMvRXhhbXBsZS5lbG0iLCAiLS1vcHRpbWl6ZSIsICItLW91dHB1dD1kaXN0L2V4YW1wbGUuanMiXQoKCiMgSnVzdCBrZWVwIHRoZSBnZW5lcmF0ZWQgZmlsZXMuCkZST00gc2NyYXRjaCBBUyBnZW5lcmF0ZWQKCkNPUFkgLS1saW5rIFsgImFzc2V0cy8uIiwgIi8uIiBdCkNPUFkgLS1saW5rIC0tZnJvbT1idWlsZCBbIi9idWlsZC9kaXN0Ly4iLCAiLy4iXQo=",
+              "llbDefinition": [
+                {
+                  "id": "step0",
+                  "op": {
+                    "Op": {
+                      "source": {
+                        "identifier": "local://dockerfile",
+                        "attrs": {
+                          "local.differ": "none",
+                          "local.followpaths": "[\"Dockerfile\",\"Dockerfile.dockerignore\",\"dockerfile\"]",
+                          "local.sharedkeyhint": "dockerfile"
+                        }
+                      }
+                    },
+                    "constraints": {}
+                  }
+                },
+                {
+                  "id": "step1",
+                  "op": {
+                    "Op": null
+                  },
+                  "inputs": [
+                    "step0:0"
+                  ]
+                }
+              ],
+              "digestMapping": {
+                "sha256:240b874483cc105a36323ba5b827b770823ae3ea50dda83c7821fad04cfb5e67": "step0",
+                "sha256:72ab860bb0a3be7e226662b632a6891e648b6c419aefddc94c0ffb721c787a89": "step1"
+              }
+            }
+          ]
+        },
+        "layers": {
+          "step2:0": [
+            [
+              {
+                "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                "digest": "sha256:d25f557d7f31bf7acfac935859b5153da41d13c41f2b468d16f729a5b883634f",
+                "size": 3622094
+              }
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

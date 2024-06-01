@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.az,
+		impl.aB,
+		impl.aO,
 		impl.aM,
-		impl.aK,
 		function() { return function() {} }
 	);
 });
@@ -3943,11 +3943,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.az,
+		impl.aB,
+		impl.aO,
 		impl.aM,
-		impl.aK,
 		function(sendToApp, initialModel) {
-			var view = impl.aN;
+			var view = impl.aP;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3979,12 +3979,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.az,
+		impl.aB,
+		impl.aO,
 		impl.aM,
-		impl.aK,
 		function(sendToApp, initialModel) {
 			var divertHrefToApp = impl.M && impl.M(sendToApp)
-			var view = impl.aN;
+			var view = impl.aP;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3992,12 +3992,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aq);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.as);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.aL) && (_VirtualDom_doc.title = title = doc.aL);
+				(title !== doc.aN) && (_VirtualDom_doc.title = title = doc.aN);
 			});
 		}
 	);
@@ -4053,8 +4053,8 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.aB;
-	var onUrlRequest = impl.aC;
+	var onUrlChange = impl.aE;
+	var onUrlRequest = impl.aF;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
@@ -4084,13 +4084,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		az: function(flags)
+		aB: function(flags)
 		{
-			return A3(impl.az, flags, _Browser_getUrl(), key);
+			return A3(impl.aB, flags, _Browser_getUrl(), key);
 		},
-		aN: impl.aN,
-		aM: impl.aM,
-		aK: impl.aK
+		aP: impl.aP,
+		aO: impl.aO,
+		aM: impl.aM
 	});
 }
 
@@ -4156,17 +4156,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { ax: 'hidden', ar: 'visibilitychange' }
+		? { az: 'hidden', at: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { ax: 'mozHidden', ar: 'mozvisibilitychange' }
+		? { az: 'mozHidden', at: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { ax: 'msHidden', ar: 'msvisibilitychange' }
+		? { az: 'msHidden', at: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { ax: 'webkitHidden', ar: 'webkitvisibilitychange' }
-		: { ax: 'hidden', ar: 'visibilitychange' };
+		? { az: 'webkitHidden', at: 'webkitvisibilitychange' }
+		: { az: 'hidden', at: 'visibilitychange' };
 }
 
 
@@ -4249,8 +4249,8 @@ function _Browser_getViewport()
 	return {
 		aj: _Browser_getScene(),
 		am: {
-			aP: _Browser_window.pageXOffset,
-			aQ: _Browser_window.pageYOffset,
+			ao: _Browser_window.pageXOffset,
+			ap: _Browser_window.pageYOffset,
 			an: _Browser_doc.documentElement.clientWidth,
 			V: _Browser_doc.documentElement.clientHeight
 		}
@@ -4291,8 +4291,8 @@ function _Browser_getViewportOf(id)
 				V: node.scrollHeight
 			},
 			am: {
-				aP: node.scrollLeft,
-				aQ: node.scrollTop,
+				ao: node.scrollLeft,
+				ap: node.scrollTop,
 				an: node.clientWidth,
 				V: node.clientHeight
 			}
@@ -4326,14 +4326,14 @@ function _Browser_getElement(id)
 		return {
 			aj: _Browser_getScene(),
 			am: {
-				aP: x,
-				aQ: y,
+				ao: x,
+				ap: y,
 				an: _Browser_doc.documentElement.clientWidth,
 				V: _Browser_doc.documentElement.clientHeight
 			},
-			at: {
-				aP: x + rect.left,
-				aQ: y + rect.top,
+			av: {
+				ao: x + rect.left,
+				ap: y + rect.top,
 				an: rect.width,
 				V: rect.height
 			}
@@ -4961,7 +4961,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {U: fragment, W: host, aE: path, ac: port_, af: protocol, ag: query};
+		return {U: fragment, W: host, aa: path, ac: port_, af: protocol, ag: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5370,42 +5370,42 @@ var $elm$random$Random$list = F2(
 			return A4($elm$random$Random$listHelp, _List_Nil, n, gen, seed);
 		};
 	});
-var $author$project$FontAwesome$IconDef = F4(
+var $lattyware$elm_fontawesome$FontAwesome$IconDef = F4(
 	function (prefix, name, size, paths) {
-		return {_: name, aF: paths, aG: prefix, aJ: size};
+		return {aD: name, aH: paths, aI: prefix, aL: size};
 	});
-var $author$project$FontAwesome$Solid$Definitions$bullhorn = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$bullhorn = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'bullhorn',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M480 179.6C498.6 188.4 512 212.1 512 240C512 267.9 498.6 291.6 480 300.4V448C480 460.9 472.2 472.6 460.2 477.6C448.3 482.5 434.5 479.8 425.4 470.6L381.7 426.1C333.7 378.1 268.6 352 200.7 352H192V480C192 497.7 177.7 512 160 512H96C78.33 512 64 497.7 64 480V352C28.65 352 0 323.3 0 288V192C0 156.7 28.65 128 64 128H200.7C268.6 128 333.7 101 381.7 53.02L425.4 9.373C434.5 .2215 448.3-2.516 460.2 2.437C472.2 7.39 480 19.06 480 32V179.6zM200.7 192H192V288H200.7C280.5 288 357.2 317.8 416 371.3V108.7C357.2 162.2 280.5 192 200.7 192V192z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Internal$Icon = $elm$core$Basics$identity;
-var $author$project$FontAwesome$present = function (icon) {
-	return {E: _List_Nil, X: icon, G: $elm$core$Maybe$Nothing, J: $elm$core$Maybe$Nothing, L: 'img', aL: $elm$core$Maybe$Nothing, F: _List_Nil};
+	_Utils_Tuple2('M480 32c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9L381.7 53c-48 48-113.1 75-181 75H192 160 64c-35.3 0-64 28.7-64 64v96c0 35.3 28.7 64 64 64l0 128c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V352l8.7 0c67.9 0 133 27 181 75l43.6 43.6c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V300.4c18.6-8.8 32-32.5 32-60.4s-13.4-51.6-32-60.4V32zm-64 76.7V240 371.3C357.2 317.8 280.5 288 200.7 288H192V192h8.7c79.8 0 156.5-29.8 215.3-83.3z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Internal$Icon = $elm$core$Basics$identity;
+var $lattyware$elm_fontawesome$FontAwesome$present = function (icon) {
+	return {E: _List_Nil, X: icon, G: $elm$core$Maybe$Nothing, J: $elm$core$Maybe$Nothing, L: 'img', aN: $elm$core$Maybe$Nothing, F: _List_Nil};
 };
-var $author$project$FontAwesome$Solid$bullhorn = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$bullhorn);
-var $author$project$FontAwesome$Solid$Definitions$car = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$bullhorn = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$bullhorn);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$car = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'car',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M39.61 196.8L74.8 96.29C88.27 57.78 124.6 32 165.4 32H346.6C387.4 32 423.7 57.78 437.2 96.29L472.4 196.8C495.6 206.4 512 229.3 512 256V448C512 465.7 497.7 480 480 480H448C430.3 480 416 465.7 416 448V400H96V448C96 465.7 81.67 480 64 480H32C14.33 480 0 465.7 0 448V256C0 229.3 16.36 206.4 39.61 196.8V196.8zM109.1 192H402.9L376.8 117.4C372.3 104.6 360.2 96 346.6 96H165.4C151.8 96 139.7 104.6 135.2 117.4L109.1 192zM96 256C78.33 256 64 270.3 64 288C64 305.7 78.33 320 96 320C113.7 320 128 305.7 128 288C128 270.3 113.7 256 96 256zM416 320C433.7 320 448 305.7 448 288C448 270.3 433.7 256 416 256C398.3 256 384 270.3 384 288C384 305.7 398.3 320 416 320z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$car = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$car);
-var $author$project$FontAwesome$Solid$Definitions$chessBishop = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M135.2 117.4L109.1 192H402.9l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32H346.6c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2V400v48c0 17.7-14.3 32-32 32H448c-17.7 0-32-14.3-32-32V400H96v48c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V400 256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$car = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$car);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$chessBishop = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'chess-bishop',
 	_Utils_Tuple2(320, 512),
-	_Utils_Tuple2('M272 448h-224C21.49 448 0 469.5 0 496C0 504.8 7.164 512 16 512h288c8.836 0 16-7.164 16-16C320 469.5 298.5 448 272 448zM8 287.9c0 51.63 22.12 73.88 56 84.63V416h192v-43.5c33.88-10.75 56-33 56-84.63c0-30.62-10.75-67.13-26.75-102.5L185 285.6c-1.565 1.565-3.608 2.349-5.651 2.349c-2.036 0-4.071-.7787-5.63-2.339l-11.35-11.27c-1.56-1.56-2.339-3.616-2.339-5.672c0-2.063 .7839-4.128 2.349-5.693l107.9-107.9C249.5 117.3 223.8 83 199.4 62.5C213.4 59.13 224 47 224 32c0-17.62-14.38-32-32-32H128C110.4 0 96 14.38 96 32c0 15 10.62 27.12 24.62 30.5C67.75 106.8 8 214.5 8 287.9z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$chessBishop = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$chessBishop);
-var $author$project$FontAwesome$Solid$Definitions$clock = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M128 0C110.3 0 96 14.3 96 32c0 16.1 11.9 29.4 27.4 31.7C78.4 106.8 8 190 8 288c0 47.4 30.8 72.3 56 84.7V400H256V372.7c25.2-12.5 56-37.4 56-84.7c0-37.3-10.2-72.4-25.3-104.1l-99.4 99.4c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6L270.8 154.6c-23.2-38.1-51.8-69.5-74.2-90.9C212.1 61.4 224 48.1 224 32c0-17.7-14.3-32-32-32H128zM48 432L6.6 473.4c-4.2 4.2-6.6 10-6.6 16C0 501.9 10.1 512 22.6 512H297.4c12.5 0 22.6-10.1 22.6-22.6c0-6-2.4-11.8-6.6-16L272 432H48z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$chessBishop = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$chessBishop);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$clock = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'clock',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512zM232 256C232 264 236 271.5 242.7 275.1L338.7 339.1C349.7 347.3 364.6 344.3 371.1 333.3C379.3 322.3 376.3 307.4 365.3 300L280 243.2V120C280 106.7 269.3 96 255.1 96C242.7 96 231.1 106.7 231.1 120L232 256z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$clock = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$clock);
+	_Utils_Tuple2('M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$clock = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$clock);
 var $elm$random$Random$map2 = F3(
 	function (func, _v0, _v1) {
 		var genA = _v0;
@@ -5422,14 +5422,14 @@ var $elm$random$Random$map2 = F3(
 				seed2);
 		};
 	});
-var $author$project$FontAwesome$Solid$Definitions$circleQuestion = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$circleQuestion = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'circle-question',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 400c-18 0-32-14-32-32s13.1-32 32-32c17.1 0 32 14 32 32S273.1 400 256 400zM325.1 258L280 286V288c0 13-11 24-24 24S232 301 232 288V272c0-8 4-16 12-21l57-34C308 213 312 206 312 198C312 186 301.1 176 289.1 176h-51.1C225.1 176 216 186 216 198c0 13-11 24-24 24s-24-11-24-24C168 159 199 128 237.1 128h51.1C329 128 360 159 360 198C360 222 347 245 325.1 258z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$circleQuestion = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$circleQuestion);
-var $author$project$FontAwesome$Solid$questionCircle = $author$project$FontAwesome$Solid$circleQuestion;
+	_Utils_Tuple2('M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$circleQuestion = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$circleQuestion);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$questionCircle = $lattyware$elm_fontawesome$FontAwesome$Solid$circleQuestion;
 var $elm$core$String$fromList = _String_fromList;
 var $elm$core$String$foldr = _String_foldr;
 var $elm$core$String$toList = function (string) {
@@ -5527,21 +5527,21 @@ var $author$project$RandomIds$randomId = function () {
 		$elm$core$String$fromList,
 		A2($elm$random$Random$list, 12, randomIdChar));
 }();
-var $author$project$FontAwesome$Solid$Definitions$rightFromBracket = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$rightFromBracket = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'right-from-bracket',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M96 480h64C177.7 480 192 465.7 192 448S177.7 416 160 416H96c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h64C177.7 96 192 81.67 192 64S177.7 32 160 32H96C42.98 32 0 74.98 0 128v256C0 437 42.98 480 96 480zM504.8 238.5l-144.1-136c-6.975-6.578-17.2-8.375-26-4.594c-8.803 3.797-14.51 12.47-14.51 22.05l-.0918 72l-128-.001c-17.69 0-32.02 14.33-32.02 32v64c0 17.67 14.34 32 32.02 32l128 .001l.0918 71.1c0 9.578 5.707 18.25 14.51 22.05c8.803 3.781 19.03 1.984 26-4.594l144.1-136C514.4 264.4 514.4 247.6 504.8 238.5z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$rightFromBracket = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$rightFromBracket);
-var $author$project$FontAwesome$Solid$signOutAlt = $author$project$FontAwesome$Solid$rightFromBracket;
-var $author$project$FontAwesome$Solid$Definitions$thumbsUp = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$rightFromBracket = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$rightFromBracket);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$signOutAlt = $lattyware$elm_fontawesome$FontAwesome$Solid$rightFromBracket;
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$thumbsUp = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'thumbs-up',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M128 447.1V223.1c0-17.67-14.33-31.1-32-31.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64C113.7 479.1 128 465.6 128 447.1zM512 224.1c0-26.5-21.48-47.98-48-47.98h-146.5c22.77-37.91 34.52-80.88 34.52-96.02C352 56.52 333.5 32 302.5 32c-63.13 0-26.36 76.15-108.2 141.6L178 186.6C166.2 196.1 160.2 210 160.1 224c-.0234 .0234 0 0 0 0L160 384c0 15.1 7.113 29.33 19.2 38.39l34.14 25.59C241 468.8 274.7 480 309.3 480H368c26.52 0 48-21.47 48-47.98c0-3.635-.4805-7.143-1.246-10.55C434 415.2 448 397.4 448 376c0-9.148-2.697-17.61-7.139-24.88C463.1 347 480 327.5 480 304.1c0-12.5-4.893-23.78-12.72-32.32C492.2 270.1 512 249.5 512 224.1z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$thumbsUp = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$thumbsUp);
+	_Utils_Tuple2('M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2H464c26.5 0 48 21.5 48 48c0 18.5-10.5 34.6-25.9 42.6C497 275.4 504 288.9 504 304c0 23.4-16.8 42.9-38.9 47.1c4.4 7.3 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48H294.5c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3V320 272 247.1c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192H96c17.7 0 32 14.3 32 32V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$thumbsUp = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$thumbsUp);
 var $author$project$Example$randomIdAndIcon = A3(
 	$elm$random$Random$map2,
 	function (id) {
@@ -5552,9 +5552,9 @@ var $author$project$Example$randomIdAndIcon = A3(
 	$author$project$RandomIds$randomId,
 	A2(
 		$elm$random$Random$uniform,
-		$author$project$FontAwesome$Solid$car,
+		$lattyware$elm_fontawesome$FontAwesome$Solid$car,
 		_List_fromArray(
-			[$author$project$FontAwesome$Solid$bullhorn, $author$project$FontAwesome$Solid$thumbsUp, $author$project$FontAwesome$Solid$signOutAlt, $author$project$FontAwesome$Solid$clock, $author$project$FontAwesome$Solid$questionCircle, $author$project$FontAwesome$Solid$chessBishop])));
+			[$lattyware$elm_fontawesome$FontAwesome$Solid$bullhorn, $lattyware$elm_fontawesome$FontAwesome$Solid$thumbsUp, $lattyware$elm_fontawesome$FontAwesome$Solid$signOutAlt, $lattyware$elm_fontawesome$FontAwesome$Solid$clock, $lattyware$elm_fontawesome$FontAwesome$Solid$questionCircle, $lattyware$elm_fontawesome$FontAwesome$Solid$chessBishop])));
 var $author$project$Example$randomise = A2(
 	$elm$random$Random$generate,
 	$author$project$Example$Change,
@@ -6003,50 +6003,50 @@ var $author$project$Example$exampleSection = F2(
 				examples));
 	});
 var $elm$svg$Svg$Attributes$class = _VirtualDom_attribute('class');
-var $author$project$FontAwesome$Attributes$fa3x = $elm$svg$Svg$Attributes$class('fa-3x');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$fa3x = $elm$svg$Svg$Attributes$class('fa-3x');
 var $elm$html$Html$span = _VirtualDom_node('span');
-var $author$project$FontAwesome$Attributes$spin = $elm$svg$Svg$Attributes$class('fa-spin');
-var $author$project$FontAwesome$Attributes$spinPulse = $elm$svg$Svg$Attributes$class('fa-spin-pulse');
-var $author$project$FontAwesome$Solid$Definitions$spinner = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$spin = $elm$svg$Svg$Attributes$class('fa-spin');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$spinPulse = $elm$svg$Svg$Attributes$class('fa-spin-pulse');
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$spinner = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'spinner',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M304 48C304 74.51 282.5 96 256 96C229.5 96 208 74.51 208 48C208 21.49 229.5 0 256 0C282.5 0 304 21.49 304 48zM304 464C304 490.5 282.5 512 256 512C229.5 512 208 490.5 208 464C208 437.5 229.5 416 256 416C282.5 416 304 437.5 304 464zM0 256C0 229.5 21.49 208 48 208C74.51 208 96 229.5 96 256C96 282.5 74.51 304 48 304C21.49 304 0 282.5 0 256zM512 256C512 282.5 490.5 304 464 304C437.5 304 416 282.5 416 256C416 229.5 437.5 208 464 208C490.5 208 512 229.5 512 256zM74.98 437C56.23 418.3 56.23 387.9 74.98 369.1C93.73 350.4 124.1 350.4 142.9 369.1C161.6 387.9 161.6 418.3 142.9 437C124.1 455.8 93.73 455.8 74.98 437V437zM142.9 142.9C124.1 161.6 93.73 161.6 74.98 142.9C56.24 124.1 56.24 93.73 74.98 74.98C93.73 56.23 124.1 56.23 142.9 74.98C161.6 93.73 161.6 124.1 142.9 142.9zM369.1 369.1C387.9 350.4 418.3 350.4 437 369.1C455.8 387.9 455.8 418.3 437 437C418.3 455.8 387.9 455.8 369.1 437C350.4 418.3 350.4 387.9 369.1 369.1V369.1z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$spinner = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$spinner);
-var $author$project$FontAwesome$Solid$Definitions$circleNotch = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M304 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 416a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM48 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm464-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM142.9 437A48 48 0 1 0 75 369.1 48 48 0 1 0 142.9 437zm0-294.2A48 48 0 1 0 75 75a48 48 0 1 0 67.9 67.9zM369.1 437A48 48 0 1 0 437 369.1 48 48 0 1 0 369.1 437z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$spinner = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$spinner);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$circleNotch = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'circle-notch',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M222.7 32.15C227.7 49.08 218.1 66.9 201.1 71.94C121.8 95.55 64 169.1 64 255.1C64 362 149.1 447.1 256 447.1C362 447.1 448 362 448 255.1C448 169.1 390.2 95.55 310.9 71.94C293.9 66.9 284.3 49.08 289.3 32.15C294.4 15.21 312.2 5.562 329.1 10.6C434.9 42.07 512 139.1 512 255.1C512 397.4 397.4 511.1 256 511.1C114.6 511.1 0 397.4 0 255.1C0 139.1 77.15 42.07 182.9 10.6C199.8 5.562 217.6 15.21 222.7 32.15V32.15z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$circleNotch = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$circleNotch);
-var $author$project$FontAwesome$Solid$Definitions$gear = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M222.7 32.1c5 16.9-4.6 34.8-21.5 39.8C121.8 95.6 64 169.1 64 256c0 106 86 192 192 192s192-86 192-192c0-86.9-57.8-160.4-137.1-184.1c-16.9-5-26.6-22.9-21.5-39.8s22.9-26.6 39.8-21.5C434.9 42.1 512 140 512 256c0 141.4-114.6 256-256 256S0 397.4 0 256C0 140 77.1 42.1 182.9 10.6c16.9-5 34.8 4.6 39.8 21.5z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$circleNotch = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$circleNotch);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$gear = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'gear',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M495.9 166.6C499.2 175.2 496.4 184.9 489.6 191.2L446.3 230.6C447.4 238.9 448 247.4 448 256C448 264.6 447.4 273.1 446.3 281.4L489.6 320.8C496.4 327.1 499.2 336.8 495.9 345.4C491.5 357.3 486.2 368.8 480.2 379.7L475.5 387.8C468.9 398.8 461.5 409.2 453.4 419.1C447.4 426.2 437.7 428.7 428.9 425.9L373.2 408.1C359.8 418.4 344.1 427 329.2 433.6L316.7 490.7C314.7 499.7 307.7 506.1 298.5 508.5C284.7 510.8 270.5 512 255.1 512C241.5 512 227.3 510.8 213.5 508.5C204.3 506.1 197.3 499.7 195.3 490.7L182.8 433.6C167 427 152.2 418.4 138.8 408.1L83.14 425.9C74.3 428.7 64.55 426.2 58.63 419.1C50.52 409.2 43.12 398.8 36.52 387.8L31.84 379.7C25.77 368.8 20.49 357.3 16.06 345.4C12.82 336.8 15.55 327.1 22.41 320.8L65.67 281.4C64.57 273.1 64 264.6 64 256C64 247.4 64.57 238.9 65.67 230.6L22.41 191.2C15.55 184.9 12.82 175.3 16.06 166.6C20.49 154.7 25.78 143.2 31.84 132.3L36.51 124.2C43.12 113.2 50.52 102.8 58.63 92.95C64.55 85.8 74.3 83.32 83.14 86.14L138.8 103.9C152.2 93.56 167 84.96 182.8 78.43L195.3 21.33C197.3 12.25 204.3 5.04 213.5 3.51C227.3 1.201 241.5 0 256 0C270.5 0 284.7 1.201 298.5 3.51C307.7 5.04 314.7 12.25 316.7 21.33L329.2 78.43C344.1 84.96 359.8 93.56 373.2 103.9L428.9 86.14C437.7 83.32 447.4 85.8 453.4 92.95C461.5 102.8 468.9 113.2 475.5 124.2L480.2 132.3C486.2 143.2 491.5 154.7 495.9 166.6V166.6zM256 336C300.2 336 336 300.2 336 255.1C336 211.8 300.2 175.1 256 175.1C211.8 175.1 176 211.8 176 255.1C176 300.2 211.8 336 256 336z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$gear = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$gear);
-var $author$project$FontAwesome$Solid$cog = $author$project$FontAwesome$Solid$gear;
-var $author$project$FontAwesome$Solid$Definitions$stroopwafel = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$gear = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$gear);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$cog = $lattyware$elm_fontawesome$FontAwesome$Solid$gear;
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$stroopwafel = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'stroopwafel',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M188.1 210.8l-45.25 45.25l45.25 45.25l45.25-45.25L188.1 210.8zM301.2 188.1l-45.25-45.25L210.7 188.1l45.25 45.25L301.2 188.1zM210.7 323.9l45.25 45.25l45.25-45.25L255.1 278.6L210.7 323.9zM256 16c-132.5 0-240 107.5-240 240s107.5 240 240 240s240-107.5 240-240S388.5 16 256 16zM442.6 295.6l-11.25 11.25c-3.125 3.125-8.25 3.125-11.38 0L391.8 278.6l-45.25 45.25l34 33.88l16.88-16.88c3.125-3.125 8.251-3.125 11.38 0l11.25 11.25c3.125 3.125 3.125 8.25 0 11.38l-16.88 16.88l16.88 17c3.125 3.125 3.125 8.25 0 11.38l-11.25 11.25c-3.125 3.125-8.251 3.125-11.38 0l-16.88-17l-17 17c-3.125 3.125-8.25 3.125-11.38 0l-11.25-11.25c-3.125-3.125-3.125-8.25 0-11.38l17-17l-34-33.88l-45.25 45.25l28.25 28.25c3.125 3.125 3.125 8.25 0 11.38l-11.25 11.25c-3.125 3.125-8.25 3.125-11.38 0l-28.25-28.25L227.7 442.6c-3.125 3.125-8.25 3.125-11.38 0l-11.25-11.25c-3.125-3.125-3.125-8.25 0-11.38l28.25-28.25l-45.25-45.25l-33.88 34l16.88 16.88c3.125 3.125 3.125 8.25 0 11.38l-11.25 11.25c-3.125 3.125-8.25 3.125-11.38 0L131.6 403.1l-16.1 16.88c-3.125 3.125-8.25 3.125-11.38 0l-11.25-11.25c-3.125-3.125-3.125-8.25 0-11.38l17-16.88l-17-17c-3.125-3.125-3.125-8.25 0-11.38l11.25-11.25c3.125-3.125 8.25-3.125 11.38 0l16.1 17l33.88-34L120.2 278.6l-28.25 28.25c-3.125 3.125-8.25 3.125-11.38 0L69.37 295.6c-3.125-3.125-3.125-8.25 0-11.38l28.25-28.25l-28.25-28.25c-3.125-3.125-3.125-8.25 0-11.38l11.25-11.25c3.125-3.125 8.25-3.125 11.38 0l28.25 28.25l45.25-45.25l-34-34l-16.88 17c-3.125 3.125-8.25 3.125-11.38 0l-11.25-11.25c-3.125-3.125-3.125-8.25 0-11.38l16.88-17l-16.88-16.88c-3.125-3.125-3.125-8.25 0-11.38l11.25-11.25c3.125-3.125 8.25-3.125 11.38 0l16.88 17l17-17c3.125-3.125 8.25-3.125 11.38 0l11.25 11.25c3.125 3.125 3.125 8.25 0 11.38l-17 16.88l34 34l45.25-45.25L205.1 92c-3.125-3.125-3.125-8.25 0-11.38l11.25-11.25c3.125-3.125 8.25-3.125 11.38 0l28.25 28.25l28.25-28.25c3.125-3.125 8.25-3.125 11.38 0l11.25 11.25c3.125 3.125 3.125 8.25 0 11.38l-28.25 28.25l45.25 45.25l34-34l-17-16.88c-3.125-3.125-3.125-8.25 0-11.38l11.25-11.25c3.125-3.125 8.25-3.125 11.38 0l17 16.88l16.88-16.88c3.125-3.125 8.251-3.125 11.38 0l11.25 11.25c3.125 3.125 3.125 8.25 0 11.38l-17 16.88l17 17c3.125 3.125 3.125 8.25 0 11.38l-11.25 11.25c-3.125 3.125-8.251 3.125-11.38 0l-16.88-17l-34 34l45.25 45.25l28.25-28.25c3.125-3.125 8.25-3.125 11.38 0l11.25 11.25c3.125 3.125 3.125 8.25 0 11.38l-28.25 28.25l28.25 28.25C445.7 287.4 445.7 292.5 442.6 295.6zM278.6 256l45.25 45.25l45.25-45.25l-45.25-45.25L278.6 256z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$stroopwafel = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$stroopwafel);
-var $author$project$FontAwesome$Solid$Definitions$arrowsRotate = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM312.6 63.7c-6.2-6.2-16.4-6.2-22.6 0L256 97.6 222.1 63.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6l33.9 33.9-45.3 45.3-56.6-56.6c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6l56.6 56.6-45.3 45.3L86.3 199.4c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L97.6 256 63.7 289.9c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l33.9-33.9 45.3 45.3-56.6 56.6c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l56.6-56.6 45.3 45.3-33.9 33.9c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L256 414.4l33.9 33.9c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-33.9-33.9 45.3-45.3 56.6 56.6c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-56.6-56.6 45.3-45.3 33.9 33.9c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L414.4 256l33.9-33.9c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-33.9 33.9-45.3-45.3 56.6-56.6c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-56.6 56.6-45.3-45.3 33.9-33.9c6.2-6.2 6.2-16.4 0-22.6zM142.9 256l45.3-45.3L233.4 256l-45.3 45.3L142.9 256zm67.9 67.9L256 278.6l45.3 45.3L256 369.1l-45.3-45.3zM278.6 256l45.3-45.3L369.1 256l-45.3 45.3L278.6 256zm22.6-67.9L256 233.4l-45.3-45.3L256 142.9l45.3 45.3z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$stroopwafel = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$stroopwafel);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$arrowsRotate = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'arrows-rotate',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M464 16c-17.67 0-32 14.31-32 32v74.09C392.1 66.52 327.4 32 256 32C161.5 32 78.59 92.34 49.58 182.2c-5.438 16.81 3.797 34.88 20.61 40.28c16.89 5.5 34.88-3.812 40.3-20.59C130.9 138.5 189.4 96 256 96c50.5 0 96.26 24.55 124.4 64H336c-17.67 0-32 14.31-32 32s14.33 32 32 32h128c17.67 0 32-14.31 32-32V48C496 30.31 481.7 16 464 16zM441.8 289.6c-16.92-5.438-34.88 3.812-40.3 20.59C381.1 373.5 322.6 416 256 416c-50.5 0-96.25-24.55-124.4-64H176c17.67 0 32-14.31 32-32s-14.33-32-32-32h-128c-17.67 0-32 14.31-32 32v144c0 17.69 14.33 32 32 32s32-14.31 32-32v-74.09C119.9 445.5 184.6 480 255.1 480c94.45 0 177.4-60.34 206.4-150.2C467.9 313 458.6 294.1 441.8 289.6z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$arrowsRotate = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$arrowsRotate);
-var $author$project$FontAwesome$Solid$sync = $author$project$FontAwesome$Solid$arrowsRotate;
+	_Utils_Tuple2('M105.1 202.6c7.7-21.8 20.2-42.3 37.8-59.8c62.5-62.5 163.8-62.5 226.3 0L386.3 160H352c-17.7 0-32 14.3-32 32s14.3 32 32 32H463.5c0 0 0 0 0 0h.4c17.7 0 32-14.3 32-32V80c0-17.7-14.3-32-32-32s-32 14.3-32 32v35.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5zM39 289.3c-5 1.5-9.8 4.2-13.7 8.2c-4 4-6.7 8.8-8.1 14c-.3 1.2-.6 2.5-.8 3.8c-.3 1.7-.4 3.4-.4 5.1V432c0 17.7 14.3 32 32 32s32-14.3 32-32V396.9l17.6 17.5 0 0c87.5 87.4 229.3 87.4 316.7 0c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.5 62.5-163.8 62.5-226.3 0l-.1-.1L125.6 352H160c17.7 0 32-14.3 32-32s-14.3-32-32-32H48.4c-1.6 0-3.2 .1-4.8 .3s-3.1 .5-4.6 1z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$arrowsRotate = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$arrowsRotate);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$sync = $lattyware$elm_fontawesome$FontAwesome$Solid$arrowsRotate;
 var $author$project$Example$spinners = _List_fromArray(
-	[$author$project$FontAwesome$Solid$spinner, $author$project$FontAwesome$Solid$circleNotch, $author$project$FontAwesome$Solid$sync, $author$project$FontAwesome$Solid$cog, $author$project$FontAwesome$Solid$stroopwafel]);
-var $author$project$FontAwesome$styled = F2(
+	[$lattyware$elm_fontawesome$FontAwesome$Solid$spinner, $lattyware$elm_fontawesome$FontAwesome$Solid$circleNotch, $lattyware$elm_fontawesome$FontAwesome$Solid$sync, $lattyware$elm_fontawesome$FontAwesome$Solid$cog, $lattyware$elm_fontawesome$FontAwesome$Solid$stroopwafel]);
+var $lattyware$elm_fontawesome$FontAwesome$styled = F2(
 	function (attributes, _v0) {
 		var presentation = _v0;
 		return _Utils_update(
@@ -6100,28 +6100,28 @@ var $elm$core$Maybe$withDefault = F2(
 			return _default;
 		}
 	});
-var $author$project$FontAwesome$Internal$topLevelDimensions = function (_v1) {
+var $lattyware$elm_fontawesome$FontAwesome$Internal$topLevelDimensions = function (_v1) {
 	var icon = _v1.X;
 	var outer = _v1.J;
 	return A2(
 		$elm$core$Maybe$withDefault,
-		icon.aJ,
-		A2($elm$core$Maybe$map, $author$project$FontAwesome$Internal$topLevelDimensionsInternal, outer));
+		icon.aL,
+		A2($elm$core$Maybe$map, $lattyware$elm_fontawesome$FontAwesome$Internal$topLevelDimensionsInternal, outer));
 };
-var $author$project$FontAwesome$Internal$topLevelDimensionsInternal = function (_v0) {
+var $lattyware$elm_fontawesome$FontAwesome$Internal$topLevelDimensionsInternal = function (_v0) {
 	var icon = _v0.X;
 	var outer = _v0.J;
 	return A2(
 		$elm$core$Maybe$withDefault,
-		icon.aJ,
-		A2($elm$core$Maybe$map, $author$project$FontAwesome$Internal$topLevelDimensions, outer));
+		icon.aL,
+		A2($elm$core$Maybe$map, $lattyware$elm_fontawesome$FontAwesome$Internal$topLevelDimensions, outer));
 };
 var $elm$svg$Svg$defs = $elm$svg$Svg$trustedNode('defs');
 var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var $elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
 var $elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
-var $author$project$FontAwesome$Svg$fill = _List_fromArray(
+var $lattyware$elm_fontawesome$FontAwesome$Svg$fill = _List_fromArray(
 	[
 		$elm$svg$Svg$Attributes$x('0'),
 		$elm$svg$Svg$Attributes$y('0'),
@@ -6135,14 +6135,14 @@ var $elm$svg$Svg$Attributes$mask = _VirtualDom_attribute('mask');
 var $elm$svg$Svg$Attributes$maskContentUnits = _VirtualDom_attribute('maskContentUnits');
 var $elm$svg$Svg$Attributes$maskUnits = _VirtualDom_attribute('maskUnits');
 var $elm$core$Basics$not = _Basics_not;
-var $author$project$FontAwesome$Transforms$Internal$add = F2(
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$add = F2(
 	function (transform, combined) {
 		switch (transform.$) {
 			case 0:
 				var by = transform.a;
 				return _Utils_update(
 					combined,
-					{aJ: combined.aJ + by});
+					{aL: combined.aL + by});
 			case 1:
 				var axis = transform.a;
 				var by = transform.b;
@@ -6157,60 +6157,60 @@ var $author$project$FontAwesome$Transforms$Internal$add = F2(
 				var y = _v1.b;
 				return _Utils_update(
 					combined,
-					{aP: combined.aP + x, aQ: combined.aQ + y});
+					{ao: combined.ao + x, ap: combined.ap + y});
 			case 2:
 				var rotation = transform.a;
 				return _Utils_update(
 					combined,
-					{aI: combined.aI + rotation});
+					{aK: combined.aK + rotation});
 			default:
 				var axis = transform.a;
 				if (!axis) {
 					return _Utils_update(
 						combined,
-						{aw: !combined.aw});
+						{ay: !combined.ay});
 				} else {
 					return _Utils_update(
 						combined,
-						{av: !combined.av});
+						{ax: !combined.ax});
 				}
 		}
 	});
-var $author$project$FontAwesome$Transforms$Internal$baseSize = 16;
-var $author$project$FontAwesome$Transforms$Internal$meaninglessTransform = {av: false, aw: false, aI: 0, aJ: $author$project$FontAwesome$Transforms$Internal$baseSize, aP: 0, aQ: 0};
-var $author$project$FontAwesome$Transforms$Internal$combine = function (transforms) {
-	return A3($elm$core$List$foldl, $author$project$FontAwesome$Transforms$Internal$add, $author$project$FontAwesome$Transforms$Internal$meaninglessTransform, transforms);
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$baseSize = 16;
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$meaninglessTransform = {ax: false, ay: false, aK: 0, aL: $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$baseSize, ao: 0, ap: 0};
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$combine = function (transforms) {
+	return A3($elm$core$List$foldl, $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$add, $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$meaninglessTransform, transforms);
 };
-var $author$project$FontAwesome$Transforms$Internal$meaningfulTransform = function (transforms) {
-	var combined = $author$project$FontAwesome$Transforms$Internal$combine(transforms);
-	return _Utils_eq(combined, $author$project$FontAwesome$Transforms$Internal$meaninglessTransform) ? $elm$core$Maybe$Nothing : $elm$core$Maybe$Just(combined);
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$meaningfulTransform = function (transforms) {
+	var combined = $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$combine(transforms);
+	return _Utils_eq(combined, $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$meaninglessTransform) ? $elm$core$Maybe$Nothing : $elm$core$Maybe$Just(combined);
 };
 var $elm$svg$Svg$rect = $elm$svg$Svg$trustedNode('rect');
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$svg$Svg$Attributes$transform = _VirtualDom_attribute('transform');
-var $author$project$FontAwesome$Transforms$Internal$transformForSvg = F3(
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$transformForSvg = F3(
 	function (containerWidth, iconWidth, transform) {
 		var path = 'translate(' + ($elm$core$String$fromFloat((iconWidth / 2) * (-1)) + ' -256)');
 		var outer = 'translate(' + ($elm$core$String$fromFloat(containerWidth / 2) + ' 256)');
-		var innerTranslate = 'translate(' + ($elm$core$String$fromFloat(transform.aP * 32) + (',' + ($elm$core$String$fromFloat(transform.aQ * 32) + ') ')));
-		var innerRotate = 'rotate(' + ($elm$core$String$fromFloat(transform.aI) + ' 0 0)');
-		var flipY = transform.aw ? (-1) : 1;
-		var scaleY = (transform.aJ / $author$project$FontAwesome$Transforms$Internal$baseSize) * flipY;
-		var flipX = transform.av ? (-1) : 1;
-		var scaleX = (transform.aJ / $author$project$FontAwesome$Transforms$Internal$baseSize) * flipX;
+		var innerTranslate = 'translate(' + ($elm$core$String$fromFloat(transform.ao * 32) + (',' + ($elm$core$String$fromFloat(transform.ap * 32) + ') ')));
+		var innerRotate = 'rotate(' + ($elm$core$String$fromFloat(transform.aK) + ' 0 0)');
+		var flipY = transform.ay ? (-1) : 1;
+		var scaleY = (transform.aL / $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$baseSize) * flipY;
+		var flipX = transform.ax ? (-1) : 1;
+		var scaleX = (transform.aL / $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$baseSize) * flipX;
 		var innerScale = 'scale(' + ($elm$core$String$fromFloat(scaleX) + (', ' + ($elm$core$String$fromFloat(scaleY) + ') ')));
 		return {
-			aA: $elm$svg$Svg$Attributes$transform(
+			aC: $elm$svg$Svg$Attributes$transform(
 				_Utils_ap(
 					innerTranslate,
 					_Utils_ap(innerScale, innerRotate))),
 			J: $elm$svg$Svg$Attributes$transform(outer),
-			aE: $elm$svg$Svg$Attributes$transform(path)
+			aa: $elm$svg$Svg$Attributes$transform(path)
 		};
 	});
 var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
 var $elm$svg$Svg$path = $elm$svg$Svg$trustedNode('path');
-var $author$project$FontAwesome$Svg$viewPath = F2(
+var $lattyware$elm_fontawesome$FontAwesome$Svg$viewPath = F2(
 	function (attrs, d) {
 		return A2(
 			$elm$svg$Svg$path,
@@ -6220,13 +6220,13 @@ var $author$project$FontAwesome$Svg$viewPath = F2(
 				attrs),
 			_List_Nil);
 	});
-var $author$project$FontAwesome$Svg$viewPaths = F2(
+var $lattyware$elm_fontawesome$FontAwesome$Svg$viewPaths = F2(
 	function (attrs, _v0) {
-		var paths = _v0.aF;
+		var paths = _v0.aH;
 		if (paths.b.$ === 1) {
 			var only = paths.a;
 			var _v2 = paths.b;
-			return A2($author$project$FontAwesome$Svg$viewPath, attrs, only);
+			return A2($lattyware$elm_fontawesome$FontAwesome$Svg$viewPath, attrs, only);
 		} else {
 			var secondary = paths.a;
 			var primary = paths.b.a;
@@ -6239,14 +6239,14 @@ var $author$project$FontAwesome$Svg$viewPaths = F2(
 				_List_fromArray(
 					[
 						A2(
-						$author$project$FontAwesome$Svg$viewPath,
+						$lattyware$elm_fontawesome$FontAwesome$Svg$viewPath,
 						A2(
 							$elm$core$List$cons,
 							$elm$svg$Svg$Attributes$class('fa-secondary'),
 							attrs),
 						secondary),
 						A2(
-						$author$project$FontAwesome$Svg$viewPath,
+						$lattyware$elm_fontawesome$FontAwesome$Svg$viewPath,
 						A2(
 							$elm$core$List$cons,
 							$elm$svg$Svg$Attributes$class('fa-primary'),
@@ -6255,11 +6255,11 @@ var $author$project$FontAwesome$Svg$viewPaths = F2(
 					]));
 		}
 	});
-var $author$project$FontAwesome$Svg$viewWithTransform = F3(
+var $lattyware$elm_fontawesome$FontAwesome$Svg$viewWithTransform = F3(
 	function (color, _v0, icon) {
 		var outer = _v0.J;
-		var inner = _v0.aA;
-		var path = _v0.aE;
+		var inner = _v0.aC;
+		var path = _v0.aa;
 		return A2(
 			$elm$svg$Svg$g,
 			_List_fromArray(
@@ -6273,7 +6273,7 @@ var $author$project$FontAwesome$Svg$viewWithTransform = F3(
 					_List_fromArray(
 						[
 							A2(
-							$author$project$FontAwesome$Svg$viewPaths,
+							$lattyware$elm_fontawesome$FontAwesome$Svg$viewPaths,
 							_List_fromArray(
 								[
 									$elm$svg$Svg$Attributes$fill(color),
@@ -6283,29 +6283,29 @@ var $author$project$FontAwesome$Svg$viewWithTransform = F3(
 						]))
 				]));
 	});
-var $author$project$FontAwesome$Svg$viewInColor = F2(
+var $lattyware$elm_fontawesome$FontAwesome$Svg$viewInColor = F2(
 	function (color, fullIcon) {
 		var icon = fullIcon.X;
 		var transforms = fullIcon.F;
 		var id = fullIcon.G;
 		var outer = fullIcon.J;
-		var combinedTransforms = $author$project$FontAwesome$Transforms$Internal$meaningfulTransform(transforms);
-		var _v0 = icon.aJ;
+		var combinedTransforms = $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$meaningfulTransform(transforms);
+		var _v0 = icon.aL;
 		var width = _v0.a;
-		var _v1 = $author$project$FontAwesome$Internal$topLevelDimensions(fullIcon);
+		var _v1 = $lattyware$elm_fontawesome$FontAwesome$Internal$topLevelDimensions(fullIcon);
 		var topLevelWidth = _v1.a;
 		if (!combinedTransforms.$) {
 			var meaningfulTransform = combinedTransforms.a;
-			var svgTransform = A3($author$project$FontAwesome$Transforms$Internal$transformForSvg, topLevelWidth, width, meaningfulTransform);
+			var svgTransform = A3($lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$transformForSvg, topLevelWidth, width, meaningfulTransform);
 			if (!outer.$) {
 				var outerIcon = outer.a;
-				return A4($author$project$FontAwesome$Svg$viewMaskedWithTransform, color, svgTransform, icon, outerIcon);
+				return A4($lattyware$elm_fontawesome$FontAwesome$Svg$viewMaskedWithTransform, color, svgTransform, icon, outerIcon);
 			} else {
-				return A3($author$project$FontAwesome$Svg$viewWithTransform, color, svgTransform, icon);
+				return A3($lattyware$elm_fontawesome$FontAwesome$Svg$viewWithTransform, color, svgTransform, icon);
 			}
 		} else {
 			return A2(
-				$author$project$FontAwesome$Svg$viewPaths,
+				$lattyware$elm_fontawesome$FontAwesome$Svg$viewPaths,
 				_List_fromArray(
 					[
 						$elm$svg$Svg$Attributes$fill(color)
@@ -6313,7 +6313,7 @@ var $author$project$FontAwesome$Svg$viewInColor = F2(
 				icon);
 		}
 	});
-var $author$project$FontAwesome$Svg$viewMaskedWithTransform = F4(
+var $lattyware$elm_fontawesome$FontAwesome$Svg$viewMaskedWithTransform = F4(
 	function (color, transforms, exclude, include) {
 		var id = include.G;
 		var alwaysId = A2($elm$core$Maybe$withDefault, '', id);
@@ -6330,11 +6330,11 @@ var $author$project$FontAwesome$Svg$viewMaskedWithTransform = F4(
 					A2(
 						$elm$core$List$cons,
 						$elm$svg$Svg$Attributes$maskContentUnits('userSpaceOnUse'),
-						$author$project$FontAwesome$Svg$fill))),
+						$lattyware$elm_fontawesome$FontAwesome$Svg$fill))),
 			_List_fromArray(
 				[
-					A2($author$project$FontAwesome$Svg$viewInColor, 'white', include),
-					A3($author$project$FontAwesome$Svg$viewWithTransform, 'black', transforms, exclude)
+					A2($lattyware$elm_fontawesome$FontAwesome$Svg$viewInColor, 'white', include),
+					A3($lattyware$elm_fontawesome$FontAwesome$Svg$viewWithTransform, 'black', transforms, exclude)
 				]));
 		var defs = A2(
 			$elm$svg$Svg$defs,
@@ -6349,7 +6349,7 @@ var $author$project$FontAwesome$Svg$viewMaskedWithTransform = F4(
 				A2(
 					$elm$core$List$cons,
 					$elm$svg$Svg$Attributes$mask('url(#' + (maskId + ')')),
-					$author$project$FontAwesome$Svg$fill)),
+					$lattyware$elm_fontawesome$FontAwesome$Svg$fill)),
 			_List_Nil);
 		return A2(
 			$elm$svg$Svg$g,
@@ -6357,18 +6357,18 @@ var $author$project$FontAwesome$Svg$viewMaskedWithTransform = F4(
 			_List_fromArray(
 				[defs, rect]));
 	});
-var $author$project$FontAwesome$Svg$view = $author$project$FontAwesome$Svg$viewInColor('currentColor');
+var $lattyware$elm_fontawesome$FontAwesome$Svg$view = $lattyware$elm_fontawesome$FontAwesome$Svg$viewInColor('currentColor');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
-var $author$project$FontAwesome$internalView = F2(
+var $lattyware$elm_fontawesome$FontAwesome$internalView = F2(
 	function (fullIcon, extraAttributes) {
 		var icon = fullIcon.X;
 		var transforms = fullIcon.F;
 		var role = fullIcon.L;
 		var id = fullIcon.G;
-		var title = fullIcon.aL;
+		var title = fullIcon.aN;
 		var outer = fullIcon.J;
 		var attributes = fullIcon.E;
-		var contents = $author$project$FontAwesome$Svg$view(fullIcon);
+		var contents = $lattyware$elm_fontawesome$FontAwesome$Svg$view(fullIcon);
 		var _v0 = function () {
 			if (!title.$) {
 				var givenTitle = title.a;
@@ -6398,14 +6398,14 @@ var $author$project$FontAwesome$internalView = F2(
 		}();
 		var semantics = _v0.a;
 		var potentiallyTitledContents = _v0.b;
-		var _v2 = $author$project$FontAwesome$Internal$topLevelDimensions(fullIcon);
+		var _v2 = $lattyware$elm_fontawesome$FontAwesome$Internal$topLevelDimensions(fullIcon);
 		var width = _v2.a;
 		var height = _v2.b;
 		var aspectRatio = $elm$core$Basics$ceiling((width / height) * 16);
 		var classes = _List_fromArray(
 			[
 				'svg-inline--fa',
-				'fa-' + icon._,
+				'fa-' + icon.aD,
 				'fa-w-' + $elm$core$String$fromInt(aspectRatio)
 			]);
 		return A2(
@@ -6430,8 +6430,8 @@ var $author$project$FontAwesome$internalView = F2(
 					])),
 			potentiallyTitledContents);
 	});
-var $author$project$FontAwesome$view = function (presentation) {
-	return A2($author$project$FontAwesome$internalView, presentation, _List_Nil);
+var $lattyware$elm_fontawesome$FontAwesome$view = function (presentation) {
+	return A2($lattyware$elm_fontawesome$FontAwesome$internalView, presentation, _List_Nil);
 };
 var $author$project$Example$animatingIcons = A2(
 	$author$project$Example$exampleSection,
@@ -6441,15 +6441,15 @@ var $author$project$Example$animatingIcons = A2(
 			A2(
 			$elm$html$Html$div,
 			_List_fromArray(
-				[$author$project$FontAwesome$Attributes$fa3x]),
+				[$lattyware$elm_fontawesome$FontAwesome$Attributes$fa3x]),
 			_List_fromArray(
 				[
-					$author$project$FontAwesome$view(
+					$lattyware$elm_fontawesome$FontAwesome$view(
 					A2(
-						$author$project$FontAwesome$styled,
+						$lattyware$elm_fontawesome$FontAwesome$styled,
 						_List_fromArray(
-							[$author$project$FontAwesome$Attributes$spinPulse]),
-						$author$project$FontAwesome$Solid$spinner)),
+							[$lattyware$elm_fontawesome$FontAwesome$Attributes$spinPulse]),
+						$lattyware$elm_fontawesome$FontAwesome$Solid$spinner)),
 					A2(
 					$elm$html$Html$span,
 					_List_Nil,
@@ -6457,10 +6457,10 @@ var $author$project$Example$animatingIcons = A2(
 						$elm$core$List$map,
 						A2(
 							$elm$core$Basics$composeR,
-							$author$project$FontAwesome$styled(
+							$lattyware$elm_fontawesome$FontAwesome$styled(
 								_List_fromArray(
-									[$author$project$FontAwesome$Attributes$spin])),
-							$author$project$FontAwesome$view),
+									[$lattyware$elm_fontawesome$FontAwesome$Attributes$spin])),
+							$lattyware$elm_fontawesome$FontAwesome$view),
 						$author$project$Example$spinners))
 				]))
 		]));
@@ -6469,15 +6469,15 @@ var $elm$virtual_dom$VirtualDom$node = function (tag) {
 		_VirtualDom_noScript(tag));
 };
 var $elm$html$Html$node = $elm$virtual_dom$VirtualDom$node;
-var $author$project$FontAwesome$Styles$css = A3(
+var $lattyware$elm_fontawesome$FontAwesome$Styles$css = A3(
 	$elm$html$Html$node,
 	'style',
 	_List_Nil,
 	_List_fromArray(
 		[
-			$elm$html$Html$text(':root, :host {  --fa-font-solid: normal 900 1em/1 \"Font Awesome 6 Solid\";  --fa-font-regular: normal 400 1em/1 \"Font Awesome 6 Regular\";  --fa-font-light: normal 300 1em/1 \"Font Awesome 6 Light\";  --fa-font-thin: normal 100 1em/1 \"Font Awesome 6 Thin\";  --fa-font-duotone: normal 900 1em/1 \"Font Awesome 6 Duotone\";  --fa-font-brands: normal 400 1em/1 \"Font Awesome 6 Brands\";}svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {  overflow: visible;  box-sizing: content-box;}.svg-inline--fa {  display: var(--fa-display, inline-block);  height: 1em;  overflow: visible;  vertical-align: -0.125em;}.svg-inline--fa.fa-2xs {  vertical-align: 0.1em;}.svg-inline--fa.fa-xs {  vertical-align: 0em;}.svg-inline--fa.fa-sm {  vertical-align: -0.0714285705em;}.svg-inline--fa.fa-lg {  vertical-align: -0.2em;}.svg-inline--fa.fa-xl {  vertical-align: -0.25em;}.svg-inline--fa.fa-2xl {  vertical-align: -0.3125em;}.svg-inline--fa.fa-pull-left {  margin-right: var(--fa-pull-margin, 0.3em);  width: auto;}.svg-inline--fa.fa-pull-right {  margin-left: var(--fa-pull-margin, 0.3em);  width: auto;}.svg-inline--fa.fa-li {  width: var(--fa-li-width, 2em);  top: 0.25em;}.svg-inline--fa.fa-fw {  width: var(--fa-fw-width, 1.25em);}.fa-layers svg.svg-inline--fa {  bottom: 0;  left: 0;  margin: auto;  position: absolute;  right: 0;  top: 0;}.fa-layers-counter, .fa-layers-text {  display: inline-block;  position: absolute;  text-align: center;}.fa-layers {  display: inline-block;  height: 1em;  position: relative;  text-align: center;  vertical-align: -0.125em;  width: 1em;}.fa-layers svg.svg-inline--fa {  -webkit-transform-origin: center center;          transform-origin: center center;}.fa-layers-text {  left: 50%;  top: 50%;  -webkit-transform: translate(-50%, -50%);          transform: translate(-50%, -50%);  -webkit-transform-origin: center center;          transform-origin: center center;}.fa-layers-counter {  background-color: var(--fa-counter-background-color, #ff253a);  border-radius: var(--fa-counter-border-radius, 1em);  box-sizing: border-box;  color: var(--fa-inverse, #fff);  line-height: var(--fa-counter-line-height, 1);  max-width: var(--fa-counter-max-width, 5em);  min-width: var(--fa-counter-min-width, 1.5em);  overflow: hidden;  padding: var(--fa-counter-padding, 0.25em 0.5em);  right: var(--fa-right, 0);  text-overflow: ellipsis;  top: var(--fa-top, 0);  -webkit-transform: scale(var(--fa-counter-scale, 0.25));          transform: scale(var(--fa-counter-scale, 0.25));  -webkit-transform-origin: top right;          transform-origin: top right;}.fa-layers-bottom-right {  bottom: var(--fa-bottom, 0);  right: var(--fa-right, 0);  top: auto;  -webkit-transform: scale(var(--fa-layers-scale, 0.25));          transform: scale(var(--fa-layers-scale, 0.25));  -webkit-transform-origin: bottom right;          transform-origin: bottom right;}.fa-layers-bottom-left {  bottom: var(--fa-bottom, 0);  left: var(--fa-left, 0);  right: auto;  top: auto;  -webkit-transform: scale(var(--fa-layers-scale, 0.25));          transform: scale(var(--fa-layers-scale, 0.25));  -webkit-transform-origin: bottom left;          transform-origin: bottom left;}.fa-layers-top-right {  top: var(--fa-top, 0);  right: var(--fa-right, 0);  -webkit-transform: scale(var(--fa-layers-scale, 0.25));          transform: scale(var(--fa-layers-scale, 0.25));  -webkit-transform-origin: top right;          transform-origin: top right;}.fa-layers-top-left {  left: var(--fa-left, 0);  right: auto;  top: var(--fa-top, 0);  -webkit-transform: scale(var(--fa-layers-scale, 0.25));          transform: scale(var(--fa-layers-scale, 0.25));  -webkit-transform-origin: top left;          transform-origin: top left;}.fa-1x {  font-size: 1em;}.fa-2x {  font-size: 2em;}.fa-3x {  font-size: 3em;}.fa-4x {  font-size: 4em;}.fa-5x {  font-size: 5em;}.fa-6x {  font-size: 6em;}.fa-7x {  font-size: 7em;}.fa-8x {  font-size: 8em;}.fa-9x {  font-size: 9em;}.fa-10x {  font-size: 10em;}.fa-2xs {  font-size: 0.625em;  line-height: 0.1em;  vertical-align: 0.225em;}.fa-xs {  font-size: 0.75em;  line-height: 0.0833333337em;  vertical-align: 0.125em;}.fa-sm {  font-size: 0.875em;  line-height: 0.0714285718em;  vertical-align: 0.0535714295em;}.fa-lg {  font-size: 1.25em;  line-height: 0.05em;  vertical-align: -0.075em;}.fa-xl {  font-size: 1.5em;  line-height: 0.0416666682em;  vertical-align: -0.125em;}.fa-2xl {  font-size: 2em;  line-height: 0.03125em;  vertical-align: -0.1875em;}.fa-fw {  text-align: center;  width: 1.25em;}.fa-ul {  list-style-type: none;  margin-left: var(--fa-li-margin, 2.5em);  padding-left: 0;}.fa-ul > li {  position: relative;}.fa-li {  left: calc(var(--fa-li-width, 2em) * -1);  position: absolute;  text-align: center;  width: var(--fa-li-width, 2em);  line-height: inherit;}.fa-border {  border-color: var(--fa-border-color, #eee);  border-radius: var(--fa-border-radius, 0.1em);  border-style: var(--fa-border-style, solid);  border-width: var(--fa-border-width, 0.08em);  padding: var(--fa-border-padding, 0.2em 0.25em 0.15em);}.fa-pull-left {  float: left;  margin-right: var(--fa-pull-margin, 0.3em);}.fa-pull-right {  float: right;  margin-left: var(--fa-pull-margin, 0.3em);}.fa-beat {  -webkit-animation-name: fa-beat;          animation-name: fa-beat;  -webkit-animation-delay: var(--fa-animation-delay, 0);          animation-delay: var(--fa-animation-delay, 0);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);          animation-timing-function: var(--fa-animation-timing, ease-in-out);}.fa-bounce {  -webkit-animation-name: fa-bounce;          animation-name: fa-bounce;  -webkit-animation-delay: var(--fa-animation-delay, 0);          animation-delay: var(--fa-animation-delay, 0);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));          animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));}.fa-fade {  -webkit-animation-name: fa-fade;          animation-name: fa-fade;  -webkit-animation-delay: var(--fa-animation-delay, 0);          animation-delay: var(--fa-animation-delay, 0);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));          animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));}.fa-beat-fade {  -webkit-animation-name: fa-beat-fade;          animation-name: fa-beat-fade;  -webkit-animation-delay: var(--fa-animation-delay, 0);          animation-delay: var(--fa-animation-delay, 0);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));          animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));}.fa-flip {  -webkit-animation-name: fa-flip;          animation-name: fa-flip;  -webkit-animation-delay: var(--fa-animation-delay, 0);          animation-delay: var(--fa-animation-delay, 0);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);          animation-timing-function: var(--fa-animation-timing, ease-in-out);}.fa-shake {  -webkit-animation-name: fa-shake;          animation-name: fa-shake;  -webkit-animation-delay: var(--fa-animation-delay, 0);          animation-delay: var(--fa-animation-delay, 0);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, linear);          animation-timing-function: var(--fa-animation-timing, linear);}.fa-spin {  -webkit-animation-name: fa-spin;          animation-name: fa-spin;  -webkit-animation-delay: var(--fa-animation-delay, 0);          animation-delay: var(--fa-animation-delay, 0);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 2s);          animation-duration: var(--fa-animation-duration, 2s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, linear);          animation-timing-function: var(--fa-animation-timing, linear);}.fa-spin-reverse {  --fa-animation-direction: reverse;}.fa-pulse,.fa-spin-pulse {  -webkit-animation-name: fa-spin;          animation-name: fa-spin;  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, steps(8));          animation-timing-function: var(--fa-animation-timing, steps(8));}@media (prefers-reduced-motion: reduce) {  .fa-beat,.fa-bounce,.fa-fade,.fa-beat-fade,.fa-flip,.fa-pulse,.fa-shake,.fa-spin,.fa-spin-pulse {    -webkit-animation-delay: -1ms;            animation-delay: -1ms;    -webkit-animation-duration: 1ms;            animation-duration: 1ms;    -webkit-animation-iteration-count: 1;            animation-iteration-count: 1;    transition-delay: 0s;    transition-duration: 0s;  }}@-webkit-keyframes fa-beat {  0%, 90% {    -webkit-transform: scale(1);            transform: scale(1);  }  45% {    -webkit-transform: scale(var(--fa-beat-scale, 1.25));            transform: scale(var(--fa-beat-scale, 1.25));  }}@keyframes fa-beat {  0%, 90% {    -webkit-transform: scale(1);            transform: scale(1);  }  45% {    -webkit-transform: scale(var(--fa-beat-scale, 1.25));            transform: scale(var(--fa-beat-scale, 1.25));  }}@-webkit-keyframes fa-bounce {  0% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }  10% {    -webkit-transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);            transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);  }  30% {    -webkit-transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));            transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));  }  50% {    -webkit-transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);            transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);  }  57% {    -webkit-transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));            transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));  }  64% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }  100% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }}@keyframes fa-bounce {  0% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }  10% {    -webkit-transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);            transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);  }  30% {    -webkit-transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));            transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));  }  50% {    -webkit-transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);            transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);  }  57% {    -webkit-transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));            transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));  }  64% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }  100% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }}@-webkit-keyframes fa-fade {  50% {    opacity: var(--fa-fade-opacity, 0.4);  }}@keyframes fa-fade {  50% {    opacity: var(--fa-fade-opacity, 0.4);  }}@-webkit-keyframes fa-beat-fade {  0%, 100% {    opacity: var(--fa-beat-fade-opacity, 0.4);    -webkit-transform: scale(1);            transform: scale(1);  }  50% {    opacity: 1;    -webkit-transform: scale(var(--fa-beat-fade-scale, 1.125));            transform: scale(var(--fa-beat-fade-scale, 1.125));  }}@keyframes fa-beat-fade {  0%, 100% {    opacity: var(--fa-beat-fade-opacity, 0.4);    -webkit-transform: scale(1);            transform: scale(1);  }  50% {    opacity: 1;    -webkit-transform: scale(var(--fa-beat-fade-scale, 1.125));            transform: scale(var(--fa-beat-fade-scale, 1.125));  }}@-webkit-keyframes fa-flip {  50% {    -webkit-transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));            transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));  }}@keyframes fa-flip {  50% {    -webkit-transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));            transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));  }}@-webkit-keyframes fa-shake {  0% {    -webkit-transform: rotate(-15deg);            transform: rotate(-15deg);  }  4% {    -webkit-transform: rotate(15deg);            transform: rotate(15deg);  }  8%, 24% {    -webkit-transform: rotate(-18deg);            transform: rotate(-18deg);  }  12%, 28% {    -webkit-transform: rotate(18deg);            transform: rotate(18deg);  }  16% {    -webkit-transform: rotate(-22deg);            transform: rotate(-22deg);  }  20% {    -webkit-transform: rotate(22deg);            transform: rotate(22deg);  }  32% {    -webkit-transform: rotate(-12deg);            transform: rotate(-12deg);  }  36% {    -webkit-transform: rotate(12deg);            transform: rotate(12deg);  }  40%, 100% {    -webkit-transform: rotate(0deg);            transform: rotate(0deg);  }}@keyframes fa-shake {  0% {    -webkit-transform: rotate(-15deg);            transform: rotate(-15deg);  }  4% {    -webkit-transform: rotate(15deg);            transform: rotate(15deg);  }  8%, 24% {    -webkit-transform: rotate(-18deg);            transform: rotate(-18deg);  }  12%, 28% {    -webkit-transform: rotate(18deg);            transform: rotate(18deg);  }  16% {    -webkit-transform: rotate(-22deg);            transform: rotate(-22deg);  }  20% {    -webkit-transform: rotate(22deg);            transform: rotate(22deg);  }  32% {    -webkit-transform: rotate(-12deg);            transform: rotate(-12deg);  }  36% {    -webkit-transform: rotate(12deg);            transform: rotate(12deg);  }  40%, 100% {    -webkit-transform: rotate(0deg);            transform: rotate(0deg);  }}@-webkit-keyframes fa-spin {  0% {    -webkit-transform: rotate(0deg);            transform: rotate(0deg);  }  100% {    -webkit-transform: rotate(360deg);            transform: rotate(360deg);  }}@keyframes fa-spin {  0% {    -webkit-transform: rotate(0deg);            transform: rotate(0deg);  }  100% {    -webkit-transform: rotate(360deg);            transform: rotate(360deg);  }}.fa-rotate-90 {  -webkit-transform: rotate(90deg);          transform: rotate(90deg);}.fa-rotate-180 {  -webkit-transform: rotate(180deg);          transform: rotate(180deg);}.fa-rotate-270 {  -webkit-transform: rotate(270deg);          transform: rotate(270deg);}.fa-flip-horizontal {  -webkit-transform: scale(-1, 1);          transform: scale(-1, 1);}.fa-flip-vertical {  -webkit-transform: scale(1, -1);          transform: scale(1, -1);}.fa-flip-both,.fa-flip-horizontal.fa-flip-vertical {  -webkit-transform: scale(-1, -1);          transform: scale(-1, -1);}.fa-rotate-by {  -webkit-transform: rotate(var(--fa-rotate-angle, none));          transform: rotate(var(--fa-rotate-angle, none));}.fa-stack {  display: inline-block;  vertical-align: middle;  height: 2em;  position: relative;  width: 2.5em;}.fa-stack-1x,.fa-stack-2x {  bottom: 0;  left: 0;  margin: auto;  position: absolute;  right: 0;  top: 0;  z-index: var(--fa-stack-z-index, auto);}.svg-inline--fa.fa-stack-1x {  height: 1em;  width: 1.25em;}.svg-inline--fa.fa-stack-2x {  height: 2em;  width: 2.5em;}.fa-inverse {  color: var(--fa-inverse, #fff);}.sr-only,.fa-sr-only {  position: absolute;  width: 1px;  height: 1px;  padding: 0;  margin: -1px;  overflow: hidden;  clip: rect(0, 0, 0, 0);  white-space: nowrap;  border-width: 0;}.sr-only-focusable:not(:focus),.fa-sr-only-focusable:not(:focus) {  position: absolute;  width: 1px;  height: 1px;  padding: 0;  margin: -1px;  overflow: hidden;  clip: rect(0, 0, 0, 0);  white-space: nowrap;  border-width: 0;}.svg-inline--fa .fa-primary {  fill: var(--fa-primary-color, currentColor);  opacity: var(--fa-primary-opacity, 1);}.svg-inline--fa .fa-secondary {  fill: var(--fa-secondary-color, currentColor);  opacity: var(--fa-secondary-opacity, 0.4);}.svg-inline--fa.fa-swap-opacity .fa-primary {  opacity: var(--fa-secondary-opacity, 0.4);}.svg-inline--fa.fa-swap-opacity .fa-secondary {  opacity: var(--fa-primary-opacity, 1);}.svg-inline--fa mask .fa-primary,.svg-inline--fa mask .fa-secondary {  fill: black;}.fad.fa-inverse,.fa-duotone.fa-inverse {  color: var(--fa-inverse, #fff);}')
+			$elm$html$Html$text(':root, :host {  --fa-font-solid: normal 900 1em/1 \"Font Awesome 6 Solid\";  --fa-font-regular: normal 400 1em/1 \"Font Awesome 6 Regular\";  --fa-font-light: normal 300 1em/1 \"Font Awesome 6 Light\";  --fa-font-thin: normal 100 1em/1 \"Font Awesome 6 Thin\";  --fa-font-duotone: normal 900 1em/1 \"Font Awesome 6 Duotone\";  --fa-font-sharp-solid: normal 900 1em/1 \"Font Awesome 6 Sharp\";  --fa-font-sharp-regular: normal 400 1em/1 \"Font Awesome 6 Sharp\";  --fa-font-sharp-light: normal 300 1em/1 \"Font Awesome 6 Sharp\";  --fa-font-sharp-thin: normal 100 1em/1 \"Font Awesome 6 Sharp\";  --fa-font-brands: normal 400 1em/1 \"Font Awesome 6 Brands\";}svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {  overflow: visible;  box-sizing: content-box;}.svg-inline--fa {  display: var(--fa-display, inline-block);  height: 1em;  overflow: visible;  vertical-align: -0.125em;}.svg-inline--fa.fa-2xs {  vertical-align: 0.1em;}.svg-inline--fa.fa-xs {  vertical-align: 0em;}.svg-inline--fa.fa-sm {  vertical-align: -0.0714285705em;}.svg-inline--fa.fa-lg {  vertical-align: -0.2em;}.svg-inline--fa.fa-xl {  vertical-align: -0.25em;}.svg-inline--fa.fa-2xl {  vertical-align: -0.3125em;}.svg-inline--fa.fa-pull-left {  margin-right: var(--fa-pull-margin, 0.3em);  width: auto;}.svg-inline--fa.fa-pull-right {  margin-left: var(--fa-pull-margin, 0.3em);  width: auto;}.svg-inline--fa.fa-li {  width: var(--fa-li-width, 2em);  top: 0.25em;}.svg-inline--fa.fa-fw {  width: var(--fa-fw-width, 1.25em);}.fa-layers svg.svg-inline--fa {  bottom: 0;  left: 0;  margin: auto;  position: absolute;  right: 0;  top: 0;}.fa-layers-counter, .fa-layers-text {  display: inline-block;  position: absolute;  text-align: center;}.fa-layers {  display: inline-block;  height: 1em;  position: relative;  text-align: center;  vertical-align: -0.125em;  width: 1em;}.fa-layers svg.svg-inline--fa {  -webkit-transform-origin: center center;          transform-origin: center center;}.fa-layers-text {  left: 50%;  top: 50%;  -webkit-transform: translate(-50%, -50%);          transform: translate(-50%, -50%);  -webkit-transform-origin: center center;          transform-origin: center center;}.fa-layers-counter {  background-color: var(--fa-counter-background-color, #ff253a);  border-radius: var(--fa-counter-border-radius, 1em);  box-sizing: border-box;  color: var(--fa-inverse, #fff);  line-height: var(--fa-counter-line-height, 1);  max-width: var(--fa-counter-max-width, 5em);  min-width: var(--fa-counter-min-width, 1.5em);  overflow: hidden;  padding: var(--fa-counter-padding, 0.25em 0.5em);  right: var(--fa-right, 0);  text-overflow: ellipsis;  top: var(--fa-top, 0);  -webkit-transform: scale(var(--fa-counter-scale, 0.25));          transform: scale(var(--fa-counter-scale, 0.25));  -webkit-transform-origin: top right;          transform-origin: top right;}.fa-layers-bottom-right {  bottom: var(--fa-bottom, 0);  right: var(--fa-right, 0);  top: auto;  -webkit-transform: scale(var(--fa-layers-scale, 0.25));          transform: scale(var(--fa-layers-scale, 0.25));  -webkit-transform-origin: bottom right;          transform-origin: bottom right;}.fa-layers-bottom-left {  bottom: var(--fa-bottom, 0);  left: var(--fa-left, 0);  right: auto;  top: auto;  -webkit-transform: scale(var(--fa-layers-scale, 0.25));          transform: scale(var(--fa-layers-scale, 0.25));  -webkit-transform-origin: bottom left;          transform-origin: bottom left;}.fa-layers-top-right {  top: var(--fa-top, 0);  right: var(--fa-right, 0);  -webkit-transform: scale(var(--fa-layers-scale, 0.25));          transform: scale(var(--fa-layers-scale, 0.25));  -webkit-transform-origin: top right;          transform-origin: top right;}.fa-layers-top-left {  left: var(--fa-left, 0);  right: auto;  top: var(--fa-top, 0);  -webkit-transform: scale(var(--fa-layers-scale, 0.25));          transform: scale(var(--fa-layers-scale, 0.25));  -webkit-transform-origin: top left;          transform-origin: top left;}.fa-1x {  font-size: 1em;}.fa-2x {  font-size: 2em;}.fa-3x {  font-size: 3em;}.fa-4x {  font-size: 4em;}.fa-5x {  font-size: 5em;}.fa-6x {  font-size: 6em;}.fa-7x {  font-size: 7em;}.fa-8x {  font-size: 8em;}.fa-9x {  font-size: 9em;}.fa-10x {  font-size: 10em;}.fa-2xs {  font-size: 0.625em;  line-height: 0.1em;  vertical-align: 0.225em;}.fa-xs {  font-size: 0.75em;  line-height: 0.0833333337em;  vertical-align: 0.125em;}.fa-sm {  font-size: 0.875em;  line-height: 0.0714285718em;  vertical-align: 0.0535714295em;}.fa-lg {  font-size: 1.25em;  line-height: 0.05em;  vertical-align: -0.075em;}.fa-xl {  font-size: 1.5em;  line-height: 0.0416666682em;  vertical-align: -0.125em;}.fa-2xl {  font-size: 2em;  line-height: 0.03125em;  vertical-align: -0.1875em;}.fa-fw {  text-align: center;  width: 1.25em;}.fa-ul {  list-style-type: none;  margin-left: var(--fa-li-margin, 2.5em);  padding-left: 0;}.fa-ul > li {  position: relative;}.fa-li {  left: calc(var(--fa-li-width, 2em) * -1);  position: absolute;  text-align: center;  width: var(--fa-li-width, 2em);  line-height: inherit;}.fa-border {  border-color: var(--fa-border-color, #eee);  border-radius: var(--fa-border-radius, 0.1em);  border-style: var(--fa-border-style, solid);  border-width: var(--fa-border-width, 0.08em);  padding: var(--fa-border-padding, 0.2em 0.25em 0.15em);}.fa-pull-left {  float: left;  margin-right: var(--fa-pull-margin, 0.3em);}.fa-pull-right {  float: right;  margin-left: var(--fa-pull-margin, 0.3em);}.fa-beat {  -webkit-animation-name: fa-beat;          animation-name: fa-beat;  -webkit-animation-delay: var(--fa-animation-delay, 0s);          animation-delay: var(--fa-animation-delay, 0s);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);          animation-timing-function: var(--fa-animation-timing, ease-in-out);}.fa-bounce {  -webkit-animation-name: fa-bounce;          animation-name: fa-bounce;  -webkit-animation-delay: var(--fa-animation-delay, 0s);          animation-delay: var(--fa-animation-delay, 0s);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));          animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));}.fa-fade {  -webkit-animation-name: fa-fade;          animation-name: fa-fade;  -webkit-animation-delay: var(--fa-animation-delay, 0s);          animation-delay: var(--fa-animation-delay, 0s);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));          animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));}.fa-beat-fade {  -webkit-animation-name: fa-beat-fade;          animation-name: fa-beat-fade;  -webkit-animation-delay: var(--fa-animation-delay, 0s);          animation-delay: var(--fa-animation-delay, 0s);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));          animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));}.fa-flip {  -webkit-animation-name: fa-flip;          animation-name: fa-flip;  -webkit-animation-delay: var(--fa-animation-delay, 0s);          animation-delay: var(--fa-animation-delay, 0s);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);          animation-timing-function: var(--fa-animation-timing, ease-in-out);}.fa-shake {  -webkit-animation-name: fa-shake;          animation-name: fa-shake;  -webkit-animation-delay: var(--fa-animation-delay, 0s);          animation-delay: var(--fa-animation-delay, 0s);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, linear);          animation-timing-function: var(--fa-animation-timing, linear);}.fa-spin {  -webkit-animation-name: fa-spin;          animation-name: fa-spin;  -webkit-animation-delay: var(--fa-animation-delay, 0s);          animation-delay: var(--fa-animation-delay, 0s);  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 2s);          animation-duration: var(--fa-animation-duration, 2s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, linear);          animation-timing-function: var(--fa-animation-timing, linear);}.fa-spin-reverse {  --fa-animation-direction: reverse;}.fa-pulse,.fa-spin-pulse {  -webkit-animation-name: fa-spin;          animation-name: fa-spin;  -webkit-animation-direction: var(--fa-animation-direction, normal);          animation-direction: var(--fa-animation-direction, normal);  -webkit-animation-duration: var(--fa-animation-duration, 1s);          animation-duration: var(--fa-animation-duration, 1s);  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);          animation-iteration-count: var(--fa-animation-iteration-count, infinite);  -webkit-animation-timing-function: var(--fa-animation-timing, steps(8));          animation-timing-function: var(--fa-animation-timing, steps(8));}@media (prefers-reduced-motion: reduce) {  .fa-beat,.fa-bounce,.fa-fade,.fa-beat-fade,.fa-flip,.fa-pulse,.fa-shake,.fa-spin,.fa-spin-pulse {    -webkit-animation-delay: -1ms;            animation-delay: -1ms;    -webkit-animation-duration: 1ms;            animation-duration: 1ms;    -webkit-animation-iteration-count: 1;            animation-iteration-count: 1;    -webkit-transition-delay: 0s;            transition-delay: 0s;    -webkit-transition-duration: 0s;            transition-duration: 0s;  }}@-webkit-keyframes fa-beat {  0%, 90% {    -webkit-transform: scale(1);            transform: scale(1);  }  45% {    -webkit-transform: scale(var(--fa-beat-scale, 1.25));            transform: scale(var(--fa-beat-scale, 1.25));  }}@keyframes fa-beat {  0%, 90% {    -webkit-transform: scale(1);            transform: scale(1);  }  45% {    -webkit-transform: scale(var(--fa-beat-scale, 1.25));            transform: scale(var(--fa-beat-scale, 1.25));  }}@-webkit-keyframes fa-bounce {  0% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }  10% {    -webkit-transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);            transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);  }  30% {    -webkit-transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));            transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));  }  50% {    -webkit-transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);            transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);  }  57% {    -webkit-transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));            transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));  }  64% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }  100% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }}@keyframes fa-bounce {  0% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }  10% {    -webkit-transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);            transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);  }  30% {    -webkit-transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));            transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));  }  50% {    -webkit-transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);            transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);  }  57% {    -webkit-transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));            transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));  }  64% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }  100% {    -webkit-transform: scale(1, 1) translateY(0);            transform: scale(1, 1) translateY(0);  }}@-webkit-keyframes fa-fade {  50% {    opacity: var(--fa-fade-opacity, 0.4);  }}@keyframes fa-fade {  50% {    opacity: var(--fa-fade-opacity, 0.4);  }}@-webkit-keyframes fa-beat-fade {  0%, 100% {    opacity: var(--fa-beat-fade-opacity, 0.4);    -webkit-transform: scale(1);            transform: scale(1);  }  50% {    opacity: 1;    -webkit-transform: scale(var(--fa-beat-fade-scale, 1.125));            transform: scale(var(--fa-beat-fade-scale, 1.125));  }}@keyframes fa-beat-fade {  0%, 100% {    opacity: var(--fa-beat-fade-opacity, 0.4);    -webkit-transform: scale(1);            transform: scale(1);  }  50% {    opacity: 1;    -webkit-transform: scale(var(--fa-beat-fade-scale, 1.125));            transform: scale(var(--fa-beat-fade-scale, 1.125));  }}@-webkit-keyframes fa-flip {  50% {    -webkit-transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));            transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));  }}@keyframes fa-flip {  50% {    -webkit-transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));            transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));  }}@-webkit-keyframes fa-shake {  0% {    -webkit-transform: rotate(-15deg);            transform: rotate(-15deg);  }  4% {    -webkit-transform: rotate(15deg);            transform: rotate(15deg);  }  8%, 24% {    -webkit-transform: rotate(-18deg);            transform: rotate(-18deg);  }  12%, 28% {    -webkit-transform: rotate(18deg);            transform: rotate(18deg);  }  16% {    -webkit-transform: rotate(-22deg);            transform: rotate(-22deg);  }  20% {    -webkit-transform: rotate(22deg);            transform: rotate(22deg);  }  32% {    -webkit-transform: rotate(-12deg);            transform: rotate(-12deg);  }  36% {    -webkit-transform: rotate(12deg);            transform: rotate(12deg);  }  40%, 100% {    -webkit-transform: rotate(0deg);            transform: rotate(0deg);  }}@keyframes fa-shake {  0% {    -webkit-transform: rotate(-15deg);            transform: rotate(-15deg);  }  4% {    -webkit-transform: rotate(15deg);            transform: rotate(15deg);  }  8%, 24% {    -webkit-transform: rotate(-18deg);            transform: rotate(-18deg);  }  12%, 28% {    -webkit-transform: rotate(18deg);            transform: rotate(18deg);  }  16% {    -webkit-transform: rotate(-22deg);            transform: rotate(-22deg);  }  20% {    -webkit-transform: rotate(22deg);            transform: rotate(22deg);  }  32% {    -webkit-transform: rotate(-12deg);            transform: rotate(-12deg);  }  36% {    -webkit-transform: rotate(12deg);            transform: rotate(12deg);  }  40%, 100% {    -webkit-transform: rotate(0deg);            transform: rotate(0deg);  }}@-webkit-keyframes fa-spin {  0% {    -webkit-transform: rotate(0deg);            transform: rotate(0deg);  }  100% {    -webkit-transform: rotate(360deg);            transform: rotate(360deg);  }}@keyframes fa-spin {  0% {    -webkit-transform: rotate(0deg);            transform: rotate(0deg);  }  100% {    -webkit-transform: rotate(360deg);            transform: rotate(360deg);  }}.fa-rotate-90 {  -webkit-transform: rotate(90deg);          transform: rotate(90deg);}.fa-rotate-180 {  -webkit-transform: rotate(180deg);          transform: rotate(180deg);}.fa-rotate-270 {  -webkit-transform: rotate(270deg);          transform: rotate(270deg);}.fa-flip-horizontal {  -webkit-transform: scale(-1, 1);          transform: scale(-1, 1);}.fa-flip-vertical {  -webkit-transform: scale(1, -1);          transform: scale(1, -1);}.fa-flip-both,.fa-flip-horizontal.fa-flip-vertical {  -webkit-transform: scale(-1, -1);          transform: scale(-1, -1);}.fa-rotate-by {  -webkit-transform: rotate(var(--fa-rotate-angle, 0));          transform: rotate(var(--fa-rotate-angle, 0));}.fa-stack {  display: inline-block;  vertical-align: middle;  height: 2em;  position: relative;  width: 2.5em;}.fa-stack-1x,.fa-stack-2x {  bottom: 0;  left: 0;  margin: auto;  position: absolute;  right: 0;  top: 0;  z-index: var(--fa-stack-z-index, auto);}.svg-inline--fa.fa-stack-1x {  height: 1em;  width: 1.25em;}.svg-inline--fa.fa-stack-2x {  height: 2em;  width: 2.5em;}.fa-inverse {  color: var(--fa-inverse, #fff);}.sr-only,.fa-sr-only {  position: absolute;  width: 1px;  height: 1px;  padding: 0;  margin: -1px;  overflow: hidden;  clip: rect(0, 0, 0, 0);  white-space: nowrap;  border-width: 0;}.sr-only-focusable:not(:focus),.fa-sr-only-focusable:not(:focus) {  position: absolute;  width: 1px;  height: 1px;  padding: 0;  margin: -1px;  overflow: hidden;  clip: rect(0, 0, 0, 0);  white-space: nowrap;  border-width: 0;}.svg-inline--fa .fa-primary {  fill: var(--fa-primary-color, currentColor);  opacity: var(--fa-primary-opacity, 1);}.svg-inline--fa .fa-secondary {  fill: var(--fa-secondary-color, currentColor);  opacity: var(--fa-secondary-opacity, 0.4);}.svg-inline--fa.fa-swap-opacity .fa-primary {  opacity: var(--fa-secondary-opacity, 0.4);}.svg-inline--fa.fa-swap-opacity .fa-secondary {  opacity: var(--fa-primary-opacity, 1);}.svg-inline--fa mask .fa-primary,.svg-inline--fa mask .fa-secondary {  fill: black;}.fad.fa-inverse,.fa-duotone.fa-inverse {  color: var(--fa-inverse, #fff);}')
 		]));
-var $author$project$FontAwesome$Attributes$fw = $elm$svg$Svg$Attributes$class('fa-fw');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$fw = $elm$svg$Svg$Attributes$class('fa-fw');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$Example$menuItem = function (_v0) {
@@ -6488,12 +6488,12 @@ var $author$project$Example$menuItem = function (_v0) {
 		_List_Nil,
 		_List_fromArray(
 			[
-				$author$project$FontAwesome$view(
+				$lattyware$elm_fontawesome$FontAwesome$view(
 				A2(
-					$author$project$FontAwesome$styled,
+					$lattyware$elm_fontawesome$FontAwesome$styled,
 					_List_fromArray(
 						[
-							$author$project$FontAwesome$Attributes$fw,
+							$lattyware$elm_fontawesome$FontAwesome$Attributes$fw,
 							A2($elm$html$Html$Attributes$style, 'background', 'MistyRose')
 						]),
 					icon)),
@@ -6501,43 +6501,43 @@ var $author$project$Example$menuItem = function (_v0) {
 				$elm$html$Html$text(text)
 			]));
 };
-var $author$project$FontAwesome$Solid$Definitions$book = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$book = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'book',
 	_Utils_Tuple2(448, 512),
-	_Utils_Tuple2('M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$book = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$book);
-var $author$project$FontAwesome$Solid$Definitions$house = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$book = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$book);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$house = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'house',
 	_Utils_Tuple2(576, 512),
-	_Utils_Tuple2('M575.8 255.5C575.8 273.5 560.8 287.6 543.8 287.6H511.8L512.5 447.7C512.5 450.5 512.3 453.1 512 455.8V472C512 494.1 494.1 512 472 512H456C454.9 512 453.8 511.1 452.7 511.9C451.3 511.1 449.9 512 448.5 512H392C369.9 512 352 494.1 352 472V384C352 366.3 337.7 352 320 352H256C238.3 352 224 366.3 224 384V472C224 494.1 206.1 512 184 512H128.1C126.6 512 125.1 511.9 123.6 511.8C122.4 511.9 121.2 512 120 512H104C81.91 512 64 494.1 64 472V360C64 359.1 64.03 358.1 64.09 357.2V287.6H32.05C14.02 287.6 0 273.5 0 255.5C0 246.5 3.004 238.5 10.01 231.5L266.4 8.016C273.4 1.002 281.4 0 288.4 0C295.4 0 303.4 2.004 309.5 7.014L564.8 231.5C572.8 238.5 576.9 246.5 575.8 255.5L575.8 255.5z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$house = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$house);
-var $author$project$FontAwesome$Solid$home = $author$project$FontAwesome$Solid$house;
-var $author$project$FontAwesome$Solid$Definitions$info = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$house = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$house);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$home = $lattyware$elm_fontawesome$FontAwesome$Solid$house;
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$info = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'info',
 	_Utils_Tuple2(192, 512),
-	_Utils_Tuple2('M160 448h-32V224c0-17.69-14.33-32-32-32L32 192c-17.67 0-32 14.31-32 32s14.33 31.1 32 31.1h32v192H32c-17.67 0-32 14.31-32 32s14.33 32 32 32h128c17.67 0 32-14.31 32-32S177.7 448 160 448zM96 128c26.51 0 48-21.49 48-48S122.5 32.01 96 32.01s-48 21.49-48 48S69.49 128 96 128z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$info = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$info);
-var $author$project$FontAwesome$Solid$Definitions$pencil = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M48 80a48 48 0 1 1 96 0A48 48 0 1 1 48 80zM0 224c0-17.7 14.3-32 32-32H96c17.7 0 32 14.3 32 32V448h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64V256H32c-17.7 0-32-14.3-32-32z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$info = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$info);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$pencil = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'pencil',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$pencil = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$pencil);
-var $author$project$FontAwesome$Solid$pencilAlt = $author$project$FontAwesome$Solid$pencil;
+	_Utils_Tuple2('M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$pencil = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$pencil);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$pencilAlt = $lattyware$elm_fontawesome$FontAwesome$Solid$pencil;
 var $author$project$Example$menuItems = _List_fromArray(
 	[
-		_Utils_Tuple2($author$project$FontAwesome$Solid$home, 'Home'),
-		_Utils_Tuple2($author$project$FontAwesome$Solid$info, 'Info'),
-		_Utils_Tuple2($author$project$FontAwesome$Solid$book, 'Library'),
-		_Utils_Tuple2($author$project$FontAwesome$Solid$pencilAlt, 'Applications'),
-		_Utils_Tuple2($author$project$FontAwesome$Solid$cog, 'Settings')
+		_Utils_Tuple2($lattyware$elm_fontawesome$FontAwesome$Solid$home, 'Home'),
+		_Utils_Tuple2($lattyware$elm_fontawesome$FontAwesome$Solid$info, 'Info'),
+		_Utils_Tuple2($lattyware$elm_fontawesome$FontAwesome$Solid$book, 'Library'),
+		_Utils_Tuple2($lattyware$elm_fontawesome$FontAwesome$Solid$pencilAlt, 'Applications'),
+		_Utils_Tuple2($lattyware$elm_fontawesome$FontAwesome$Solid$cog, 'Settings')
 	]);
 var $author$project$Example$fixedWidthIcons = A2(
 	$author$project$Example$exampleSection,
@@ -6567,7 +6567,7 @@ var $elm$html$Html$Attributes$href = function (url) {
 		'href',
 		_VirtualDom_noJavaScriptUri(url));
 };
-var $author$project$FontAwesome$Attributes$li = $elm$svg$Svg$Attributes$class('fa-li');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$li = $elm$svg$Svg$Attributes$class('fa-li');
 var $elm$html$Html$li = _VirtualDom_node('li');
 var $author$project$Example$listItem = function (_v0) {
 	var icon = _v0.a;
@@ -6580,48 +6580,48 @@ var $author$project$Example$listItem = function (_v0) {
 				A2(
 				$elm$html$Html$span,
 				_List_fromArray(
-					[$author$project$FontAwesome$Attributes$li]),
+					[$lattyware$elm_fontawesome$FontAwesome$Attributes$li]),
 				_List_fromArray(
 					[icon])),
 				$elm$html$Html$text(text)
 			]));
 };
-var $author$project$FontAwesome$Solid$Definitions$squareCheck = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$squareCheck = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'square-check',
 	_Utils_Tuple2(448, 512),
-	_Utils_Tuple2('M384 32C419.3 32 448 60.65 448 96V416C448 451.3 419.3 480 384 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H384zM339.8 211.8C350.7 200.9 350.7 183.1 339.8 172.2C328.9 161.3 311.1 161.3 300.2 172.2L192 280.4L147.8 236.2C136.9 225.3 119.1 225.3 108.2 236.2C97.27 247.1 97.27 264.9 108.2 275.8L172.2 339.8C183.1 350.7 200.9 350.7 211.8 339.8L339.8 211.8z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$squareCheck = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$squareCheck);
-var $author$project$FontAwesome$Solid$checkSquare = $author$project$FontAwesome$Solid$squareCheck;
-var $author$project$FontAwesome$Solid$Definitions$square = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$squareCheck = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$squareCheck);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$checkSquare = $lattyware$elm_fontawesome$FontAwesome$Solid$squareCheck;
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$square = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'square',
 	_Utils_Tuple2(448, 512),
-	_Utils_Tuple2('M0 96C0 60.65 28.65 32 64 32H384C419.3 32 448 60.65 448 96V416C448 451.3 419.3 480 384 480H64C28.65 480 0 451.3 0 416V96z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$square = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$square);
+	_Utils_Tuple2('M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$square = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$square);
 var $author$project$Example$listItems = _List_fromArray(
 	[
 		_Utils_Tuple2(
-		$author$project$FontAwesome$view($author$project$FontAwesome$Solid$checkSquare),
+		$lattyware$elm_fontawesome$FontAwesome$view($lattyware$elm_fontawesome$FontAwesome$Solid$checkSquare),
 		'List icons can'),
 		_Utils_Tuple2(
-		$author$project$FontAwesome$view($author$project$FontAwesome$Solid$checkSquare),
+		$lattyware$elm_fontawesome$FontAwesome$view($lattyware$elm_fontawesome$FontAwesome$Solid$checkSquare),
 		'be used to'),
 		_Utils_Tuple2(
-		$author$project$FontAwesome$view(
+		$lattyware$elm_fontawesome$FontAwesome$view(
 			A2(
-				$author$project$FontAwesome$styled,
+				$lattyware$elm_fontawesome$FontAwesome$styled,
 				_List_fromArray(
-					[$author$project$FontAwesome$Attributes$spinPulse]),
-				$author$project$FontAwesome$Solid$spinner)),
+					[$lattyware$elm_fontawesome$FontAwesome$Attributes$spinPulse]),
+				$lattyware$elm_fontawesome$FontAwesome$Solid$spinner)),
 		'replace bullets'),
 		_Utils_Tuple2(
-		$author$project$FontAwesome$view($author$project$FontAwesome$Solid$square),
+		$lattyware$elm_fontawesome$FontAwesome$view($lattyware$elm_fontawesome$FontAwesome$Solid$square),
 		'in lists')
 	]);
-var $author$project$FontAwesome$Attributes$ul = $elm$svg$Svg$Attributes$class('fa-ul');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$ul = $elm$svg$Svg$Attributes$class('fa-ul');
 var $elm$html$Html$ul = _VirtualDom_node('ul');
 var $author$project$Example$iconsInAList = A2(
 	$author$project$Example$exampleSection,
@@ -6631,39 +6631,39 @@ var $author$project$Example$iconsInAList = A2(
 			A2(
 			$elm$html$Html$ul,
 			_List_fromArray(
-				[$author$project$FontAwesome$Attributes$ul]),
+				[$lattyware$elm_fontawesome$FontAwesome$Attributes$ul]),
 			A2($elm$core$List$map, $author$project$Example$listItem, $author$project$Example$listItems))
 		]));
-var $author$project$FontAwesome$Solid$Definitions$bookmark = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$bookmark = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'bookmark',
 	_Utils_Tuple2(384, 512),
-	_Utils_Tuple2('M384 48V512l-192-112L0 512V48C0 21.5 21.5 0 48 0h288C362.5 0 384 21.5 384 48z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$bookmark = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$bookmark);
-var $author$project$FontAwesome$Solid$Definitions$calendar = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$bookmark = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$bookmark);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$calendar = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'calendar',
 	_Utils_Tuple2(448, 512),
-	_Utils_Tuple2('M96 32C96 14.33 110.3 0 128 0C145.7 0 160 14.33 160 32V64H288V32C288 14.33 302.3 0 320 0C337.7 0 352 14.33 352 32V64H400C426.5 64 448 85.49 448 112V160H0V112C0 85.49 21.49 64 48 64H96V32zM448 464C448 490.5 426.5 512 400 512H48C21.49 512 0 490.5 0 464V192H448V464z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$calendar = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$calendar);
-var $author$project$FontAwesome$Solid$Definitions$certificate = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M96 32V64H48C21.5 64 0 85.5 0 112v48H448V112c0-26.5-21.5-48-48-48H352V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H160V32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192H0V464c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V192z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$calendar = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$calendar);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$certificate = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'certificate',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M256 53.46L300.1 7.261C307 1.034 315.1-1.431 324.4 .8185C332.8 3.068 339.3 9.679 341.4 18.1L357.3 80.6L419.3 63.07C427.7 60.71 436.7 63.05 442.8 69.19C448.1 75.34 451.3 84.33 448.9 92.69L431.4 154.7L493.9 170.6C502.3 172.7 508.9 179.2 511.2 187.6C513.4 196 510.1 204.1 504.7 211L458.5 256L504.7 300.1C510.1 307 513.4 315.1 511.2 324.4C508.9 332.8 502.3 339.3 493.9 341.4L431.4 357.3L448.9 419.3C451.3 427.7 448.1 436.7 442.8 442.8C436.7 448.1 427.7 451.3 419.3 448.9L357.3 431.4L341.4 493.9C339.3 502.3 332.8 508.9 324.4 511.2C315.1 513.4 307 510.1 300.1 504.7L256 458.5L211 504.7C204.1 510.1 196 513.4 187.6 511.2C179.2 508.9 172.7 502.3 170.6 493.9L154.7 431.4L92.69 448.9C84.33 451.3 75.34 448.1 69.19 442.8C63.05 436.7 60.71 427.7 63.07 419.3L80.6 357.3L18.1 341.4C9.679 339.3 3.068 332.8 .8186 324.4C-1.431 315.1 1.034 307 7.261 300.1L53.46 256L7.261 211C1.034 204.1-1.431 196 .8186 187.6C3.068 179.2 9.679 172.7 18.1 170.6L80.6 154.7L63.07 92.69C60.71 84.33 63.05 75.34 69.19 69.19C75.34 63.05 84.33 60.71 92.69 63.07L154.7 80.6L170.6 18.1C172.7 9.679 179.2 3.068 187.6 .8185C196-1.431 204.1 1.034 211 7.261L256 53.46z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$certificate = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$certificate);
-var $author$project$FontAwesome$Solid$Definitions$circle = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M211 7.3C205 1 196-1.4 187.6 .8s-14.9 8.9-17.1 17.3L154.7 80.6l-62-17.5c-8.4-2.4-17.4 0-23.5 6.1s-8.5 15.1-6.1 23.5l17.5 62L18.1 170.6c-8.4 2.1-15 8.7-17.3 17.1S1 205 7.3 211l46.2 45L7.3 301C1 307-1.4 316 .8 324.4s8.9 14.9 17.3 17.1l62.5 15.8-17.5 62c-2.4 8.4 0 17.4 6.1 23.5s15.1 8.5 23.5 6.1l62-17.5 15.8 62.5c2.1 8.4 8.7 15 17.1 17.3s17.3-.2 23.4-6.4l45-46.2 45 46.2c6.1 6.2 15 8.7 23.4 6.4s14.9-8.9 17.1-17.3l15.8-62.5 62 17.5c8.4 2.4 17.4 0 23.5-6.1s8.5-15.1 6.1-23.5l-17.5-62 62.5-15.8c8.4-2.1 15-8.7 17.3-17.1s-.2-17.4-6.4-23.4l-46.2-45 46.2-45c6.2-6.1 8.7-15 6.4-23.4s-8.9-14.9-17.3-17.1l-62.5-15.8 17.5-62c2.4-8.4 0-17.4-6.1-23.5s-15.1-8.5-23.5-6.1l-62 17.5L341.4 18.1c-2.1-8.4-8.7-15-17.1-17.3S307 1 301 7.3L256 53.5 211 7.3z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$certificate = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$certificate);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$circle = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'circle',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$circle = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$circle);
+	_Utils_Tuple2('M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$circle = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$circle);
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $author$project$FontAwesome$Layering$counter = F2(
+var $lattyware$elm_fontawesome$FontAwesome$Layering$counter = F2(
 	function (attrs, count) {
 		return A2(
 			$elm$html$Html$span,
@@ -6676,33 +6676,33 @@ var $author$project$FontAwesome$Layering$counter = F2(
 					$elm$html$Html$text(count)
 				]));
 	});
-var $author$project$FontAwesome$Transforms$Reposition = F2(
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Reposition = F2(
 	function (a, b) {
 		return {$: 1, a: a, b: b};
 	});
-var $author$project$FontAwesome$Transforms$Vertical = 0;
-var $author$project$FontAwesome$Transforms$down = $author$project$FontAwesome$Transforms$Reposition(0);
-var $author$project$FontAwesome$Solid$Definitions$envelope = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Vertical = 0;
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$down = $lattyware$elm_fontawesome$FontAwesome$Transforms$Reposition(0);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$envelope = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'envelope',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$envelope = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$envelope);
-var $author$project$FontAwesome$Attributes$fa4x = $elm$svg$Svg$Attributes$class('fa-4x');
-var $author$project$FontAwesome$Transforms$Scale = function (a) {
+	_Utils_Tuple2('M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$envelope = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$envelope);
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$fa4x = $elm$svg$Svg$Attributes$class('fa-4x');
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Scale = function (a) {
 	return {$: 0, a: a};
 };
-var $author$project$FontAwesome$Transforms$grow = $author$project$FontAwesome$Transforms$Scale;
-var $author$project$FontAwesome$Solid$Definitions$heart = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$grow = $lattyware$elm_fontawesome$FontAwesome$Transforms$Scale;
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$heart = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'heart',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$heart = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$heart);
-var $author$project$FontAwesome$Attributes$inverse = $elm$svg$Svg$Attributes$class('fa-inverse');
-var $author$project$FontAwesome$Layering$layers = F2(
+	_Utils_Tuple2('M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$heart = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$heart);
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$inverse = $elm$svg$Svg$Attributes$class('fa-inverse');
+var $lattyware$elm_fontawesome$FontAwesome$Layering$layers = F2(
 	function (attrs, icons) {
 		return A2(
 			$elm$html$Html$span,
@@ -6712,52 +6712,52 @@ var $author$project$FontAwesome$Layering$layers = F2(
 				attrs),
 			icons);
 	});
-var $author$project$FontAwesome$Transforms$Horizontal = 1;
-var $author$project$FontAwesome$Transforms$left = A2(
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Horizontal = 1;
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$left = A2(
 	$elm$core$Basics$composeR,
 	$elm$core$Basics$negate,
-	$author$project$FontAwesome$Transforms$Reposition(1));
-var $author$project$FontAwesome$Solid$Definitions$moon = A4(
-	$author$project$FontAwesome$IconDef,
+	$lattyware$elm_fontawesome$FontAwesome$Transforms$Reposition(1));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$moon = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'moon',
-	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$moon = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$moon);
-var $author$project$FontAwesome$Solid$Definitions$play = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2(384, 512),
+	_Utils_Tuple2('M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$moon = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$moon);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$play = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'play',
 	_Utils_Tuple2(384, 512),
-	_Utils_Tuple2('M361 215C375.3 223.8 384 239.3 384 256C384 272.7 375.3 288.2 361 296.1L73.03 472.1C58.21 482 39.66 482.4 24.52 473.9C9.377 465.4 0 449.4 0 432V80C0 62.64 9.377 46.63 24.52 38.13C39.66 29.64 58.21 29.99 73.03 39.04L361 215z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$play = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$play);
-var $author$project$FontAwesome$Transforms$right = $author$project$FontAwesome$Transforms$Reposition(1);
-var $author$project$FontAwesome$Transforms$Rotate = function (a) {
+	_Utils_Tuple2('M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$play = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$play);
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$right = $lattyware$elm_fontawesome$FontAwesome$Transforms$Reposition(1);
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$Rotate = function (a) {
 	return {$: 2, a: a};
 };
-var $author$project$FontAwesome$Transforms$rotate = $author$project$FontAwesome$Transforms$Rotate;
-var $author$project$FontAwesome$Transforms$shrink = A2($elm$core$Basics$composeR, $elm$core$Basics$negate, $author$project$FontAwesome$Transforms$Scale);
-var $author$project$FontAwesome$Solid$Definitions$star = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$rotate = $lattyware$elm_fontawesome$FontAwesome$Transforms$Rotate;
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$shrink = A2($elm$core$Basics$composeR, $elm$core$Basics$negate, $lattyware$elm_fontawesome$FontAwesome$Transforms$Scale);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$star = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'star',
 	_Utils_Tuple2(576, 512),
-	_Utils_Tuple2('M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$star = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$star);
-var $author$project$FontAwesome$Solid$Definitions$sun = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$star = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$star);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$sun = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'sun',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$sun = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$sun);
-var $author$project$FontAwesome$Layering$transformForCss = function (transform) {
-	var translate = 'translate(calc(-50% + ' + ($elm$core$String$fromFloat(transform.aP / $author$project$FontAwesome$Transforms$Internal$baseSize) + ('em), calc(-50% + ' + ($elm$core$String$fromFloat(transform.aQ / $author$project$FontAwesome$Transforms$Internal$baseSize) + 'em)) ')));
-	var rotate = 'rotate(' + ($elm$core$String$fromFloat(transform.aI) + 'deg)');
-	var flipY = transform.aw ? (-1) : 1;
-	var scaleY = (transform.aJ / $author$project$FontAwesome$Transforms$Internal$baseSize) * flipY;
-	var flipX = transform.av ? (-1) : 1;
-	var scaleX = (transform.aJ / $author$project$FontAwesome$Transforms$Internal$baseSize) * flipX;
+	_Utils_Tuple2('M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$sun = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$sun);
+var $lattyware$elm_fontawesome$FontAwesome$Layering$transformForCss = function (transform) {
+	var translate = 'translate(calc(-50% + ' + ($elm$core$String$fromFloat(transform.ao / $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$baseSize) + ('em), calc(-50% + ' + ($elm$core$String$fromFloat(transform.ap / $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$baseSize) + 'em)) ')));
+	var rotate = 'rotate(' + ($elm$core$String$fromFloat(transform.aK) + 'deg)');
+	var flipY = transform.ay ? (-1) : 1;
+	var scaleY = (transform.aL / $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$baseSize) * flipY;
+	var flipX = transform.ax ? (-1) : 1;
+	var scaleX = (transform.aL / $lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$baseSize) * flipX;
 	var scale = 'scale(' + ($elm$core$String$fromFloat(scaleX) + (', ' + ($elm$core$String$fromFloat(scaleY) + ') ')));
 	return _List_fromArray(
 		[
@@ -6769,15 +6769,15 @@ var $author$project$FontAwesome$Layering$transformForCss = function (transform) 
 				_Utils_ap(scale, rotate)))
 		]);
 };
-var $author$project$FontAwesome$Layering$textTransformed = F3(
+var $lattyware$elm_fontawesome$FontAwesome$Layering$textTransformed = F3(
 	function (attrs, transforms, str) {
 		var transform = A2(
 			$elm$core$Maybe$withDefault,
 			_List_Nil,
 			A2(
 				$elm$core$Maybe$map,
-				$author$project$FontAwesome$Layering$transformForCss,
-				$author$project$FontAwesome$Transforms$Internal$meaningfulTransform(transforms)));
+				$lattyware$elm_fontawesome$FontAwesome$Layering$transformForCss,
+				$lattyware$elm_fontawesome$FontAwesome$Transforms$Internal$meaningfulTransform(transforms)));
 		return A2(
 			$elm$html$Html$span,
 			$elm$core$List$concat(
@@ -6796,15 +6796,15 @@ var $author$project$FontAwesome$Layering$textTransformed = F3(
 					$elm$html$Html$text(str)
 				]));
 	});
-var $author$project$FontAwesome$Solid$Definitions$xmark = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$xmark = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'xmark',
-	_Utils_Tuple2(320, 512),
-	_Utils_Tuple2('M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$xmark = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$xmark);
-var $author$project$FontAwesome$Solid$times = $author$project$FontAwesome$Solid$xmark;
-var $author$project$FontAwesome$transform = F2(
+	_Utils_Tuple2(384, 512),
+	_Utils_Tuple2('M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$xmark = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$xmark);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$times = $lattyware$elm_fontawesome$FontAwesome$Solid$xmark;
+var $lattyware$elm_fontawesome$FontAwesome$transform = F2(
 	function (transforms, _v0) {
 		var presentation = _v0;
 		return _Utils_update(
@@ -6813,10 +6813,10 @@ var $author$project$FontAwesome$transform = F2(
 				F: _Utils_ap(presentation.F, transforms)
 			});
 	});
-var $author$project$FontAwesome$Transforms$up = A2(
+var $lattyware$elm_fontawesome$FontAwesome$Transforms$up = A2(
 	$elm$core$Basics$composeR,
 	$elm$core$Basics$negate,
-	$author$project$FontAwesome$Transforms$Reposition(0));
+	$lattyware$elm_fontawesome$FontAwesome$Transforms$Reposition(0));
 var $author$project$Example$layeringTextAndCounters = A2(
 	$author$project$Example$exampleSection,
 	'Layering, Text, and Counters',
@@ -6825,173 +6825,173 @@ var $author$project$Example$layeringTextAndCounters = A2(
 			A2(
 			$elm$html$Html$div,
 			_List_fromArray(
-				[$author$project$FontAwesome$Attributes$fa4x]),
+				[$lattyware$elm_fontawesome$FontAwesome$Attributes$fa4x]),
 			_List_fromArray(
 				[
 					A2(
-					$author$project$FontAwesome$Layering$layers,
+					$lattyware$elm_fontawesome$FontAwesome$Layering$layers,
 					_List_fromArray(
 						[
 							A2($elm$html$Html$Attributes$style, 'background', 'MistyRose')
 						]),
 					_List_fromArray(
 						[
-							$author$project$FontAwesome$view($author$project$FontAwesome$Solid$circle),
-							$author$project$FontAwesome$view(
+							$lattyware$elm_fontawesome$FontAwesome$view($lattyware$elm_fontawesome$FontAwesome$Solid$circle),
+							$lattyware$elm_fontawesome$FontAwesome$view(
 							A2(
-								$author$project$FontAwesome$transform,
+								$lattyware$elm_fontawesome$FontAwesome$transform,
 								_List_fromArray(
 									[
-										$author$project$FontAwesome$Transforms$shrink(6)
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(6)
 									]),
 								A2(
-									$author$project$FontAwesome$styled,
+									$lattyware$elm_fontawesome$FontAwesome$styled,
 									_List_fromArray(
-										[$author$project$FontAwesome$Attributes$inverse]),
-									$author$project$FontAwesome$Solid$times)))
+										[$lattyware$elm_fontawesome$FontAwesome$Attributes$inverse]),
+									$lattyware$elm_fontawesome$FontAwesome$Solid$times)))
 						])),
 					A2(
-					$author$project$FontAwesome$Layering$layers,
+					$lattyware$elm_fontawesome$FontAwesome$Layering$layers,
 					_List_fromArray(
 						[
 							A2($elm$html$Html$Attributes$style, 'background', 'MistyRose')
 						]),
 					_List_fromArray(
 						[
-							$author$project$FontAwesome$view($author$project$FontAwesome$Solid$bookmark),
-							$author$project$FontAwesome$view(
+							$lattyware$elm_fontawesome$FontAwesome$view($lattyware$elm_fontawesome$FontAwesome$Solid$bookmark),
+							$lattyware$elm_fontawesome$FontAwesome$view(
 							A2(
-								$author$project$FontAwesome$transform,
+								$lattyware$elm_fontawesome$FontAwesome$transform,
 								_List_fromArray(
 									[
-										$author$project$FontAwesome$Transforms$shrink(10),
-										$author$project$FontAwesome$Transforms$up(2)
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(10),
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$up(2)
 									]),
 								A2(
-									$author$project$FontAwesome$styled,
+									$lattyware$elm_fontawesome$FontAwesome$styled,
 									_List_fromArray(
 										[
-											$author$project$FontAwesome$Attributes$inverse,
+											$lattyware$elm_fontawesome$FontAwesome$Attributes$inverse,
 											A2($elm$html$Html$Attributes$style, 'color', 'Tomato')
 										]),
-									$author$project$FontAwesome$Solid$heart)))
+									$lattyware$elm_fontawesome$FontAwesome$Solid$heart)))
 						])),
 					A2(
-					$author$project$FontAwesome$Layering$layers,
+					$lattyware$elm_fontawesome$FontAwesome$Layering$layers,
 					_List_fromArray(
 						[
 							A2($elm$html$Html$Attributes$style, 'background', 'MistyRose')
 						]),
 					_List_fromArray(
 						[
-							$author$project$FontAwesome$view(
+							$lattyware$elm_fontawesome$FontAwesome$view(
 							A2(
-								$author$project$FontAwesome$transform,
+								$lattyware$elm_fontawesome$FontAwesome$transform,
 								_List_fromArray(
 									[
-										$author$project$FontAwesome$Transforms$rotate(-90),
-										$author$project$FontAwesome$Transforms$grow(2)
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$rotate(-90),
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$grow(2)
 									]),
-								$author$project$FontAwesome$Solid$play)),
-							$author$project$FontAwesome$view(
+								$lattyware$elm_fontawesome$FontAwesome$Solid$play)),
+							$lattyware$elm_fontawesome$FontAwesome$view(
 							A2(
-								$author$project$FontAwesome$transform,
+								$lattyware$elm_fontawesome$FontAwesome$transform,
 								_List_fromArray(
 									[
-										$author$project$FontAwesome$Transforms$shrink(10),
-										$author$project$FontAwesome$Transforms$up(2)
-									]),
-								A2(
-									$author$project$FontAwesome$styled,
-									_List_fromArray(
-										[$author$project$FontAwesome$Attributes$inverse]),
-									$author$project$FontAwesome$Solid$sun))),
-							$author$project$FontAwesome$view(
-							A2(
-								$author$project$FontAwesome$transform,
-								_List_fromArray(
-									[
-										$author$project$FontAwesome$Transforms$shrink(11),
-										$author$project$FontAwesome$Transforms$down(4.2),
-										$author$project$FontAwesome$Transforms$left(4)
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(10),
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$up(2)
 									]),
 								A2(
-									$author$project$FontAwesome$styled,
+									$lattyware$elm_fontawesome$FontAwesome$styled,
 									_List_fromArray(
-										[$author$project$FontAwesome$Attributes$inverse]),
-									$author$project$FontAwesome$Solid$moon))),
-							$author$project$FontAwesome$view(
+										[$lattyware$elm_fontawesome$FontAwesome$Attributes$inverse]),
+									$lattyware$elm_fontawesome$FontAwesome$Solid$sun))),
+							$lattyware$elm_fontawesome$FontAwesome$view(
 							A2(
-								$author$project$FontAwesome$transform,
+								$lattyware$elm_fontawesome$FontAwesome$transform,
 								_List_fromArray(
 									[
-										$author$project$FontAwesome$Transforms$shrink(11),
-										$author$project$FontAwesome$Transforms$down(4.2),
-										$author$project$FontAwesome$Transforms$right(4)
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(11),
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$down(4.2),
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$left(4)
 									]),
 								A2(
-									$author$project$FontAwesome$styled,
+									$lattyware$elm_fontawesome$FontAwesome$styled,
 									_List_fromArray(
-										[$author$project$FontAwesome$Attributes$inverse]),
-									$author$project$FontAwesome$Solid$star)))
+										[$lattyware$elm_fontawesome$FontAwesome$Attributes$inverse]),
+									$lattyware$elm_fontawesome$FontAwesome$Solid$moon))),
+							$lattyware$elm_fontawesome$FontAwesome$view(
+							A2(
+								$lattyware$elm_fontawesome$FontAwesome$transform,
+								_List_fromArray(
+									[
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(11),
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$down(4.2),
+										$lattyware$elm_fontawesome$FontAwesome$Transforms$right(4)
+									]),
+								A2(
+									$lattyware$elm_fontawesome$FontAwesome$styled,
+									_List_fromArray(
+										[$lattyware$elm_fontawesome$FontAwesome$Attributes$inverse]),
+									$lattyware$elm_fontawesome$FontAwesome$Solid$star)))
 						])),
 					A2(
-					$author$project$FontAwesome$Layering$layers,
+					$lattyware$elm_fontawesome$FontAwesome$Layering$layers,
 					_List_fromArray(
 						[
 							A2($elm$html$Html$Attributes$style, 'background', 'MistyRose')
 						]),
 					_List_fromArray(
 						[
-							$author$project$FontAwesome$view($author$project$FontAwesome$Solid$calendar),
+							$lattyware$elm_fontawesome$FontAwesome$view($lattyware$elm_fontawesome$FontAwesome$Solid$calendar),
 							A3(
-							$author$project$FontAwesome$Layering$textTransformed,
+							$lattyware$elm_fontawesome$FontAwesome$Layering$textTransformed,
 							_List_fromArray(
 								[
-									$author$project$FontAwesome$Attributes$inverse,
+									$lattyware$elm_fontawesome$FontAwesome$Attributes$inverse,
 									A2($elm$html$Html$Attributes$style, 'font-weight', '900')
 								]),
 							_List_fromArray(
 								[
-									$author$project$FontAwesome$Transforms$shrink(8),
-									$author$project$FontAwesome$Transforms$down(3)
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(8),
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$down(3)
 								]),
 							'27')
 						])),
 					A2(
-					$author$project$FontAwesome$Layering$layers,
+					$lattyware$elm_fontawesome$FontAwesome$Layering$layers,
 					_List_fromArray(
 						[
 							A2($elm$html$Html$Attributes$style, 'background', 'MistyRose')
 						]),
 					_List_fromArray(
 						[
-							$author$project$FontAwesome$view($author$project$FontAwesome$Solid$certificate),
+							$lattyware$elm_fontawesome$FontAwesome$view($lattyware$elm_fontawesome$FontAwesome$Solid$certificate),
 							A3(
-							$author$project$FontAwesome$Layering$textTransformed,
+							$lattyware$elm_fontawesome$FontAwesome$Layering$textTransformed,
 							_List_fromArray(
 								[
-									$author$project$FontAwesome$Attributes$inverse,
+									$lattyware$elm_fontawesome$FontAwesome$Attributes$inverse,
 									A2($elm$html$Html$Attributes$style, 'font-weight', '900')
 								]),
 							_List_fromArray(
 								[
-									$author$project$FontAwesome$Transforms$shrink(11.5),
-									$author$project$FontAwesome$Transforms$rotate(-30)
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(11.5),
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$rotate(-30)
 								]),
 							'NEW')
 						])),
 					A2(
-					$author$project$FontAwesome$Layering$layers,
+					$lattyware$elm_fontawesome$FontAwesome$Layering$layers,
 					_List_fromArray(
 						[
 							A2($elm$html$Html$Attributes$style, 'background', 'MistyRose')
 						]),
 					_List_fromArray(
 						[
-							$author$project$FontAwesome$view($author$project$FontAwesome$Solid$envelope),
+							$lattyware$elm_fontawesome$FontAwesome$view($lattyware$elm_fontawesome$FontAwesome$Solid$envelope),
 							A2(
-							$author$project$FontAwesome$Layering$counter,
+							$lattyware$elm_fontawesome$FontAwesome$Layering$counter,
 							_List_fromArray(
 								[
 									A2($elm$html$Html$Attributes$style, 'background', 'Tomato')
@@ -7000,35 +7000,35 @@ var $author$project$Example$layeringTextAndCounters = A2(
 						]))
 				]))
 		]));
-var $author$project$FontAwesome$Solid$Definitions$comment = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$comment = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'comment',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M256 32C114.6 32 .0272 125.1 .0272 240c0 49.63 21.35 94.98 56.97 130.7c-12.5 50.37-54.27 95.27-54.77 95.77c-2.25 2.25-2.875 5.734-1.5 8.734C1.979 478.2 4.75 480 8 480c66.25 0 115.1-31.76 140.6-51.39C181.2 440.9 217.6 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$comment = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$comment);
-var $author$project$FontAwesome$Brands$Definitions$facebookF = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$comment = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$comment);
+var $lattyware$elm_fontawesome$FontAwesome$Brands$Definitions$facebookF = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fab',
 	'facebook-f',
 	_Utils_Tuple2(320, 512),
-	_Utils_Tuple2('M279.1 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.4 0 225.4 0c-73.22 0-121.1 44.38-121.1 124.7v70.62H22.89V288h81.39v224h100.2V288z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Brands$facebookF = $author$project$FontAwesome$present($author$project$FontAwesome$Brands$Definitions$facebookF);
-var $author$project$FontAwesome$Solid$Definitions$headphones = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Brands$facebookF = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Brands$Definitions$facebookF);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$headphones = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'headphones',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M512 287.9l-.0042 112C511.1 444.1 476.1 480 432 480c-26.47 0-48-21.56-48-48.06V304.1C384 277.6 405.5 256 432 256c10.83 0 20.91 2.723 30.3 6.678C449.7 159.1 362.1 80.13 256 80.13S62.29 159.1 49.7 262.7C59.09 258.7 69.17 256 80 256C106.5 256 128 277.6 128 304.1v127.9C128 458.4 106.5 480 80 480c-44.11 0-79.1-35.88-79.1-80.06L0 288c0-141.2 114.8-256 256-256c140.9 0 255.6 114.5 255.1 255.3C511.1 287.5 511.1 287.7 512 287.9z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$headphones = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$headphones);
-var $author$project$FontAwesome$Solid$Definitions$mask = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M256 80C149.9 80 62.4 159.4 49.6 262c9.4-3.8 19.6-6 30.4-6c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48c-44.2 0-80-35.8-80-80V384 336 288C0 146.6 114.6 32 256 32s256 114.6 256 256v48 48 16c0 44.2-35.8 80-80 80c-26.5 0-48-21.5-48-48V304c0-26.5 21.5-48 48-48c10.8 0 21 2.1 30.4 6C449.6 159.4 362.1 80 256 80z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$headphones = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$headphones);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$mask = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'mask',
 	_Utils_Tuple2(576, 512),
-	_Utils_Tuple2('M288 64C39.52 64 0 182.1 0 273.5C0 379.5 78.8 448 176 448c27.33 0 51.21-6.516 66.11-36.79l19.93-40.5C268.3 358.6 278.1 352.4 288 352.1c9.9 .3711 19.7 6.501 25.97 18.63l19.93 40.5C348.8 441.5 372.7 448 400 448c97.2 0 176-68.51 176-174.5C576 182.1 536.5 64 288 64zM160 320c-35.35 0-64-28.65-64-64s28.65-64 64-64c35.35 0 64 28.65 64 64S195.3 320 160 320zM416 320c-35.35 0-64-28.65-64-64s28.65-64 64-64c35.35 0 64 28.65 64 64S451.3 320 416 320z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$mask = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$mask);
-var $author$project$FontAwesome$masked = F2(
+	_Utils_Tuple2('M288 64C64 64 0 160 0 272S80 448 176 448h8.4c24.2 0 46.4-13.7 57.2-35.4l23.2-46.3c4.4-8.8 13.3-14.3 23.2-14.3s18.8 5.5 23.2 14.3l23.2 46.3c10.8 21.7 33 35.4 57.2 35.4H400c96 0 176-64 176-176s-64-208-288-208zM96 256a64 64 0 1 1 128 0A64 64 0 1 1 96 256zm320-64a64 64 0 1 1 0 128 64 64 0 1 1 0-128z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$mask = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$mask);
+var $lattyware$elm_fontawesome$FontAwesome$masked = F2(
 	function (outer, _v0) {
 		var presentation = _v0;
 		return _Utils_update(
@@ -7037,7 +7037,7 @@ var $author$project$FontAwesome$masked = F2(
 				J: $elm$core$Maybe$Just(outer)
 			});
 	});
-var $author$project$FontAwesome$withId = F2(
+var $lattyware$elm_fontawesome$FontAwesome$withId = F2(
 	function (id, _v0) {
 		var presentation = _v0;
 		return _Utils_update(
@@ -7055,82 +7055,82 @@ var $author$project$Example$masking = A2(
 			$elm$html$Html$div,
 			_List_fromArray(
 				[
-					$author$project$FontAwesome$Attributes$fa4x,
+					$lattyware$elm_fontawesome$FontAwesome$Attributes$fa4x,
 					A2($elm$html$Html$Attributes$style, 'background', 'MistyRose')
 				]),
 			_List_fromArray(
 				[
-					$author$project$FontAwesome$view(
+					$lattyware$elm_fontawesome$FontAwesome$view(
 					A2(
-						$author$project$FontAwesome$masked,
-						A2($author$project$FontAwesome$withId, 'comment', $author$project$FontAwesome$Solid$comment),
+						$lattyware$elm_fontawesome$FontAwesome$masked,
+						A2($lattyware$elm_fontawesome$FontAwesome$withId, 'comment', $lattyware$elm_fontawesome$FontAwesome$Solid$comment),
 						A2(
-							$author$project$FontAwesome$transform,
+							$lattyware$elm_fontawesome$FontAwesome$transform,
 							_List_fromArray(
 								[
-									$author$project$FontAwesome$Transforms$shrink(10),
-									$author$project$FontAwesome$Transforms$up(0.5)
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(10),
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$up(0.5)
 								]),
-							$author$project$FontAwesome$Solid$pencilAlt))),
-					$author$project$FontAwesome$view(
+							$lattyware$elm_fontawesome$FontAwesome$Solid$pencilAlt))),
+					$lattyware$elm_fontawesome$FontAwesome$view(
 					A2(
-						$author$project$FontAwesome$masked,
-						A2($author$project$FontAwesome$withId, 'facebook', $author$project$FontAwesome$Solid$circle),
+						$lattyware$elm_fontawesome$FontAwesome$masked,
+						A2($lattyware$elm_fontawesome$FontAwesome$withId, 'facebook', $lattyware$elm_fontawesome$FontAwesome$Solid$circle),
 						A2(
-							$author$project$FontAwesome$transform,
+							$lattyware$elm_fontawesome$FontAwesome$transform,
 							_List_fromArray(
 								[
-									$author$project$FontAwesome$Transforms$shrink(3.5),
-									$author$project$FontAwesome$Transforms$down(1.6),
-									$author$project$FontAwesome$Transforms$right(1.25)
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(3.5),
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$down(1.6),
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$right(1.25)
 								]),
-							$author$project$FontAwesome$Brands$facebookF))),
-					$author$project$FontAwesome$view(
+							$lattyware$elm_fontawesome$FontAwesome$Brands$facebookF))),
+					$lattyware$elm_fontawesome$FontAwesome$view(
 					A2(
-						$author$project$FontAwesome$masked,
-						A2($author$project$FontAwesome$withId, 'headphones', $author$project$FontAwesome$Solid$square),
+						$lattyware$elm_fontawesome$FontAwesome$masked,
+						A2($lattyware$elm_fontawesome$FontAwesome$withId, 'headphones', $lattyware$elm_fontawesome$FontAwesome$Solid$square),
 						A2(
-							$author$project$FontAwesome$transform,
+							$lattyware$elm_fontawesome$FontAwesome$transform,
 							_List_fromArray(
 								[
-									$author$project$FontAwesome$Transforms$shrink(6)
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(6)
 								]),
-							$author$project$FontAwesome$Solid$headphones))),
-					$author$project$FontAwesome$view(
+							$lattyware$elm_fontawesome$FontAwesome$Solid$headphones))),
+					$lattyware$elm_fontawesome$FontAwesome$view(
 					A2(
-						$author$project$FontAwesome$masked,
-						A2($author$project$FontAwesome$withId, 'mask', $author$project$FontAwesome$Solid$circle),
+						$lattyware$elm_fontawesome$FontAwesome$masked,
+						A2($lattyware$elm_fontawesome$FontAwesome$withId, 'mask', $lattyware$elm_fontawesome$FontAwesome$Solid$circle),
 						A2(
-							$author$project$FontAwesome$transform,
+							$lattyware$elm_fontawesome$FontAwesome$transform,
 							_List_fromArray(
 								[
-									$author$project$FontAwesome$Transforms$shrink(3),
-									$author$project$FontAwesome$Transforms$up(1)
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$shrink(3),
+									$lattyware$elm_fontawesome$FontAwesome$Transforms$up(1)
 								]),
-							$author$project$FontAwesome$Solid$mask)))
+							$lattyware$elm_fontawesome$FontAwesome$Solid$mask)))
 				]))
 		]));
-var $author$project$FontAwesome$titled = F2(
+var $lattyware$elm_fontawesome$FontAwesome$titled = F2(
 	function (title, _v0) {
 		var presentation = _v0;
 		return _Utils_update(
 			presentation,
 			{
-				aL: $elm$core$Maybe$Just(title)
+				aN: $elm$core$Maybe$Just(title)
 			});
 	});
 var $author$project$Example$randomIconWithId = function (_v0) {
 	var id = _v0.a;
 	var icon = _v0.b;
-	return $author$project$FontAwesome$view(
+	return $lattyware$elm_fontawesome$FontAwesome$view(
 		A2(
-			$author$project$FontAwesome$styled,
+			$lattyware$elm_fontawesome$FontAwesome$styled,
 			_List_fromArray(
-				[$author$project$FontAwesome$Attributes$fw]),
+				[$lattyware$elm_fontawesome$FontAwesome$Attributes$fw]),
 			A2(
-				$author$project$FontAwesome$titled,
+				$lattyware$elm_fontawesome$FontAwesome$titled,
 				id,
-				A2($author$project$FontAwesome$withId, id, icon))));
+				A2($lattyware$elm_fontawesome$FontAwesome$withId, id, icon))));
 };
 var $author$project$Example$randomIds = function (randomIcons) {
 	return A2(
@@ -7138,32 +7138,32 @@ var $author$project$Example$randomIds = function (randomIcons) {
 		'Random Ids',
 		A2($elm$core$List$map, $author$project$Example$randomIconWithId, randomIcons));
 };
-var $author$project$FontAwesome$Solid$Definitions$circleRight = A4(
-	$author$project$FontAwesome$IconDef,
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$circleRight = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'circle-right',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M512 256c0-141.4-114.6-256-256-256S0 114.6 0 256c0 141.4 114.6 256 256 256S512 397.4 512 256zM265.9 382.8C259.9 380.3 256 374.5 256 368v-64H160c-17.67 0-32-14.33-32-32v-32c0-17.67 14.33-32 32-32h96v-64c0-6.469 3.891-12.31 9.875-14.78c5.984-2.484 12.86-1.109 17.44 3.469l112 112c6.248 6.248 6.248 16.38 0 22.62l-112 112C278.7 383.9 271.9 385.3 265.9 382.8z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$circleRight = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$circleRight);
-var $author$project$FontAwesome$Solid$arrowAltCircleRight = $author$project$FontAwesome$Solid$circleRight;
-var $author$project$FontAwesome$Solid$Definitions$ban = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM294.6 135.1l99.9 107.1c3.5 3.8 5.5 8.7 5.5 13.8s-2 10.1-5.5 13.8L294.6 376.9c-4.2 4.5-10.1 7.1-16.3 7.1C266 384 256 374 256 361.7l0-57.7-96 0c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32l96 0 0-57.7c0-12.3 10-22.3 22.3-22.3c6.2 0 12.1 2.6 16.3 7.1z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$circleRight = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$circleRight);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$arrowAltCircleRight = $lattyware$elm_fontawesome$FontAwesome$Solid$circleRight;
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$ban = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'ban',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM99.5 144.8C77.15 176.1 64 214.5 64 256C64 362 149.1 448 256 448C297.5 448 335.9 434.9 367.2 412.5L99.5 144.8zM448 256C448 149.1 362 64 256 64C214.5 64 176.1 77.15 144.8 99.5L412.5 367.2C434.9 335.9 448 297.5 448 256V256z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$ban = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$ban);
-var $author$project$FontAwesome$Solid$Definitions$camera = A4(
-	$author$project$FontAwesome$IconDef,
+	_Utils_Tuple2('M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$ban = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$ban);
+var $lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$camera = A4(
+	$lattyware$elm_fontawesome$FontAwesome$IconDef,
 	'fas',
 	'camera',
 	_Utils_Tuple2(512, 512),
-	_Utils_Tuple2('M194.6 32H317.4C338.1 32 356.4 45.22 362.9 64.82L373.3 96H448C483.3 96 512 124.7 512 160V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V160C0 124.7 28.65 96 64 96H138.7L149.1 64.82C155.6 45.22 173.9 32 194.6 32H194.6zM256 384C309 384 352 341 352 288C352 234.1 309 192 256 192C202.1 192 160 234.1 160 288C160 341 202.1 384 256 384z', $elm$core$Maybe$Nothing));
-var $author$project$FontAwesome$Solid$camera = $author$project$FontAwesome$present($author$project$FontAwesome$Solid$Definitions$camera);
-var $author$project$FontAwesome$Attributes$fa2x = $elm$svg$Svg$Attributes$class('fa-2x');
-var $author$project$FontAwesome$Attributes$stack = $elm$svg$Svg$Attributes$class('fa-stack');
-var $author$project$FontAwesome$Attributes$stack1x = $elm$svg$Svg$Attributes$class('fa-stack-1x');
-var $author$project$FontAwesome$Attributes$stack2x = $elm$svg$Svg$Attributes$class('fa-stack-2x');
+	_Utils_Tuple2('M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z', $elm$core$Maybe$Nothing));
+var $lattyware$elm_fontawesome$FontAwesome$Solid$camera = $lattyware$elm_fontawesome$FontAwesome$present($lattyware$elm_fontawesome$FontAwesome$Solid$Definitions$camera);
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$fa2x = $elm$svg$Svg$Attributes$class('fa-2x');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$stack = $elm$svg$Svg$Attributes$class('fa-stack');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$stack1x = $elm$svg$Svg$Attributes$class('fa-stack-1x');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$stack2x = $elm$svg$Svg$Attributes$class('fa-stack-2x');
 var $author$project$Example$simpleExamples = A2(
 	$author$project$Example$exampleSection,
 	'Simple Examples',
@@ -7174,7 +7174,7 @@ var $author$project$Example$simpleExamples = A2(
 			_List_Nil,
 			_List_fromArray(
 				[
-					$author$project$FontAwesome$view($author$project$FontAwesome$Solid$arrowAltCircleRight),
+					$lattyware$elm_fontawesome$FontAwesome$view($lattyware$elm_fontawesome$FontAwesome$Solid$arrowAltCircleRight),
 					$elm$html$Html$text(' Go!')
 				])),
 			A2(
@@ -7182,52 +7182,52 @@ var $author$project$Example$simpleExamples = A2(
 			_List_Nil,
 			_List_fromArray(
 				[
-					$author$project$FontAwesome$view(
+					$lattyware$elm_fontawesome$FontAwesome$view(
 					A2(
-						$author$project$FontAwesome$styled,
+						$lattyware$elm_fontawesome$FontAwesome$styled,
 						_List_fromArray(
-							[$author$project$FontAwesome$Attributes$spin]),
-						$author$project$FontAwesome$Solid$spinner)),
+							[$lattyware$elm_fontawesome$FontAwesome$Attributes$spin]),
+						$lattyware$elm_fontawesome$FontAwesome$Solid$spinner)),
 					$elm$html$Html$text(' Loading...')
 				])),
 			A2(
 			$elm$html$Html$div,
 			_List_fromArray(
-				[$author$project$FontAwesome$Attributes$stack, $author$project$FontAwesome$Attributes$fa2x]),
+				[$lattyware$elm_fontawesome$FontAwesome$Attributes$stack, $lattyware$elm_fontawesome$FontAwesome$Attributes$fa2x]),
 			_List_fromArray(
 				[
-					$author$project$FontAwesome$view(
+					$lattyware$elm_fontawesome$FontAwesome$view(
 					A2(
-						$author$project$FontAwesome$styled,
+						$lattyware$elm_fontawesome$FontAwesome$styled,
 						_List_fromArray(
-							[$author$project$FontAwesome$Attributes$stack1x]),
-						$author$project$FontAwesome$Solid$camera)),
-					$author$project$FontAwesome$view(
+							[$lattyware$elm_fontawesome$FontAwesome$Attributes$stack1x]),
+						$lattyware$elm_fontawesome$FontAwesome$Solid$camera)),
+					$lattyware$elm_fontawesome$FontAwesome$view(
 					A2(
-						$author$project$FontAwesome$styled,
+						$lattyware$elm_fontawesome$FontAwesome$styled,
 						_List_fromArray(
 							[
-								$author$project$FontAwesome$Attributes$stack2x,
+								$lattyware$elm_fontawesome$FontAwesome$Attributes$stack2x,
 								A2($elm$html$Html$Attributes$style, 'color', 'Tomato')
 							]),
-						$author$project$FontAwesome$Solid$ban))
+						$lattyware$elm_fontawesome$FontAwesome$Solid$ban))
 				]))
 		]));
-var $author$project$FontAwesome$Attributes$fa10x = $elm$svg$Svg$Attributes$class('fa-10x');
-var $author$project$FontAwesome$Attributes$fa5x = $elm$svg$Svg$Attributes$class('fa-5x');
-var $author$project$FontAwesome$Attributes$fa7x = $elm$svg$Svg$Attributes$class('fa-7x');
-var $author$project$FontAwesome$Attributes$lg = $elm$svg$Svg$Attributes$class('fa-lg');
-var $author$project$FontAwesome$Attributes$sm = $elm$svg$Svg$Attributes$class('fa-sm');
-var $author$project$FontAwesome$Attributes$xs = $elm$svg$Svg$Attributes$class('fa-xs');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$fa10x = $elm$svg$Svg$Attributes$class('fa-10x');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$fa5x = $elm$svg$Svg$Attributes$class('fa-5x');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$fa7x = $elm$svg$Svg$Attributes$class('fa-7x');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$lg = $elm$svg$Svg$Attributes$class('fa-lg');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$sm = $elm$svg$Svg$Attributes$class('fa-sm');
+var $lattyware$elm_fontawesome$FontAwesome$Attributes$xs = $elm$svg$Svg$Attributes$class('fa-xs');
 var $author$project$Example$sizes = _List_fromArray(
-	[$author$project$FontAwesome$Attributes$xs, $author$project$FontAwesome$Attributes$sm, $author$project$FontAwesome$Attributes$lg, $author$project$FontAwesome$Attributes$fa2x, $author$project$FontAwesome$Attributes$fa3x, $author$project$FontAwesome$Attributes$fa5x, $author$project$FontAwesome$Attributes$fa7x, $author$project$FontAwesome$Attributes$fa10x]);
+	[$lattyware$elm_fontawesome$FontAwesome$Attributes$xs, $lattyware$elm_fontawesome$FontAwesome$Attributes$sm, $lattyware$elm_fontawesome$FontAwesome$Attributes$lg, $lattyware$elm_fontawesome$FontAwesome$Attributes$fa2x, $lattyware$elm_fontawesome$FontAwesome$Attributes$fa3x, $lattyware$elm_fontawesome$FontAwesome$Attributes$fa5x, $lattyware$elm_fontawesome$FontAwesome$Attributes$fa7x, $lattyware$elm_fontawesome$FontAwesome$Attributes$fa10x]);
 var $author$project$Example$stroopwafel = function (size) {
-	return $author$project$FontAwesome$view(
+	return $lattyware$elm_fontawesome$FontAwesome$view(
 		A2(
-			$author$project$FontAwesome$styled,
+			$lattyware$elm_fontawesome$FontAwesome$styled,
 			_List_fromArray(
 				[size]),
-			$author$project$FontAwesome$Solid$stroopwafel));
+			$lattyware$elm_fontawesome$FontAwesome$Solid$stroopwafel));
 };
 var $author$project$Example$sizingIcons = A2(
 	$author$project$Example$exampleSection,
@@ -7248,19 +7248,19 @@ var $author$project$Example$svgIcons = A2(
 				]),
 			_List_fromArray(
 				[
-					$author$project$FontAwesome$Svg$view($author$project$FontAwesome$Solid$pencilAlt)
+					$lattyware$elm_fontawesome$FontAwesome$Svg$view($lattyware$elm_fontawesome$FontAwesome$Solid$pencilAlt)
 				]))
 		]));
 var $author$project$Example$view = function (model) {
 	return {
-		aq: _List_fromArray(
+		as: _List_fromArray(
 			[
 				A2(
 				$elm$html$Html$div,
 				_List_Nil,
 				_List_fromArray(
 					[
-						$author$project$FontAwesome$Styles$css,
+						$lattyware$elm_fontawesome$FontAwesome$Styles$css,
 						A2(
 						$elm$html$Html$h1,
 						_List_Nil,
@@ -7288,16 +7288,16 @@ var $author$project$Example$view = function (model) {
 						$author$project$Example$svgIcons
 					]))
 			]),
-		aL: 'elm-fontawesome Example'
+		aN: 'elm-fontawesome Example'
 	};
 };
 var $author$project$Example$main = $elm$browser$Browser$document(
 	{
-		az: $elm$core$Basics$always(
+		aB: $elm$core$Basics$always(
 			_Utils_Tuple2(_List_Nil, $author$project$Example$randomise)),
-		aK: $author$project$Example$subscriptions,
-		aM: $author$project$Example$update,
-		aN: $author$project$Example$view
+		aM: $author$project$Example$subscriptions,
+		aO: $author$project$Example$update,
+		aP: $author$project$Example$view
 	});
 _Platform_export({'Example':{'init':$author$project$Example$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));
