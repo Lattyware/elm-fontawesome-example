@@ -5,7 +5,7 @@
     {
       "name": "example.js",
       "digest": {
-        "sha256": "d43b29460dd595e894a768dcecf3ceaceb24b1a3be5349f49cf7dc649a079b40"
+        "sha256": "d15ce922310310c32cb2dfcd26a9994bd0ce71468a171bf1cae9a91f09ad2abe"
       }
     },
     {
@@ -17,14 +17,14 @@
   ],
   "predicate": {
     "builder": {
-      "id": "https://github.com/Lattyware/elm-fontawesome/actions/runs/9332100593"
+      "id": "https://github.com/Lattyware/elm-fontawesome/actions/runs/11923320809"
     },
     "buildType": "https://mobyproject.org/buildkit@v1",
     "materials": [
       {
         "uri": "pkg:docker/alpine@latest?platform=linux%2Famd64",
         "digest": {
-          "sha256": "77726ef6b57ddf65bb551896826ec38bc3e53f75cdde31354fbffb4f25238ebd"
+          "sha256": "1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a"
         }
       },
       {
@@ -68,7 +68,7 @@
           "id": "step0",
           "op": {
             "Op": {
-              "source": {
+              "Source": {
                 "identifier": "local://context",
                 "attrs": {
                   "local.excludepatterns": "[\"node_modules\",\"elm-stuff\",\"dist\"]",
@@ -83,14 +83,12 @@
           "id": "step1",
           "op": {
             "Op": {
-              "file": {
+              "File": {
                 "actions": [
                   {
                     "input": -1,
-                    "secondaryInput": 0,
-                    "output": 0,
                     "Action": {
-                      "copy": {
+                      "Copy": {
                         "src": "/assets",
                         "dest": "/.",
                         "mode": -1,
@@ -116,8 +114,8 @@
           "id": "step2",
           "op": {
             "Op": {
-              "source": {
-                "identifier": "docker-image://docker.io/library/alpine:latest@sha256:77726ef6b57ddf65bb551896826ec38bc3e53f75cdde31354fbffb4f25238ebd",
+              "Source": {
+                "identifier": "docker-image://docker.io/library/alpine:latest@sha256:1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a",
                 "attrs": {
                   "image.resolvemode": "pull"
                 }
@@ -134,14 +132,12 @@
           "id": "step3",
           "op": {
             "Op": {
-              "file": {
+              "File": {
                 "actions": [
                   {
-                    "input": 0,
                     "secondaryInput": -1,
-                    "output": 0,
                     "Action": {
-                      "mkdir": {
+                      "Mkdir": {
                         "path": "/elm",
                         "mode": 493,
                         "makeParents": true,
@@ -162,7 +158,7 @@
           "id": "step4",
           "op": {
             "Op": {
-              "exec": {
+              "Exec": {
                 "meta": {
                   "args": [
                     "/bin/sh",
@@ -178,9 +174,7 @@
                 },
                 "mounts": [
                   {
-                    "input": 0,
-                    "dest": "/",
-                    "output": 0
+                    "dest": "/"
                   },
                   {
                     "input": -1,
@@ -209,7 +203,7 @@
           "id": "step5",
           "op": {
             "Op": {
-              "source": {
+              "Source": {
                 "identifier": "https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz",
                 "attrs": {
                   "http.filename": "binary-for-linux-64-bit.gz"
@@ -223,14 +217,12 @@
           "id": "step6",
           "op": {
             "Op": {
-              "file": {
+              "File": {
                 "actions": [
                   {
                     "input": -1,
-                    "secondaryInput": 0,
-                    "output": 0,
                     "Action": {
-                      "copy": {
+                      "Copy": {
                         "src": "/binary-for-linux-64-bit.gz",
                         "dest": "/elm/elm.gz",
                         "mode": -1,
@@ -252,11 +244,9 @@
           "id": "step7",
           "op": {
             "Op": {
-              "merge": {
+              "Merge": {
                 "inputs": [
-                  {
-                    "input": 0
-                  },
+                  {},
                   {
                     "input": 1
                   }
@@ -274,7 +264,7 @@
           "id": "step8",
           "op": {
             "Op": {
-              "exec": {
+              "Exec": {
                 "meta": {
                   "args": [
                     "/bin/sh",
@@ -290,9 +280,7 @@
                 },
                 "mounts": [
                   {
-                    "input": 0,
-                    "dest": "/",
-                    "output": 0
+                    "dest": "/"
                   }
                 ]
               }
@@ -311,7 +299,7 @@
           "id": "step9",
           "op": {
             "Op": {
-              "exec": {
+              "Exec": {
                 "meta": {
                   "args": [
                     "/bin/sh",
@@ -327,9 +315,7 @@
                 },
                 "mounts": [
                   {
-                    "input": 0,
-                    "dest": "/",
-                    "output": 0
+                    "dest": "/"
                   }
                 ]
               }
@@ -348,14 +334,12 @@
           "id": "step10",
           "op": {
             "Op": {
-              "file": {
+              "File": {
                 "actions": [
                   {
-                    "input": 0,
                     "secondaryInput": -1,
-                    "output": 0,
                     "Action": {
-                      "mkdir": {
+                      "Mkdir": {
                         "path": "/build",
                         "mode": 493,
                         "makeParents": true,
@@ -376,14 +360,12 @@
           "id": "step11",
           "op": {
             "Op": {
-              "file": {
+              "File": {
                 "actions": [
                   {
                     "input": -1,
-                    "secondaryInput": 0,
-                    "output": 0,
                     "Action": {
-                      "copy": {
+                      "Copy": {
                         "src": "/",
                         "dest": "/build/",
                         "mode": -1,
@@ -409,11 +391,9 @@
           "id": "step12",
           "op": {
             "Op": {
-              "merge": {
+              "Merge": {
                 "inputs": [
-                  {
-                    "input": 0
-                  },
+                  {},
                   {
                     "input": 1
                   }
@@ -431,7 +411,7 @@
           "id": "step13",
           "op": {
             "Op": {
-              "exec": {
+              "Exec": {
                 "meta": {
                   "args": [
                     "/bin/sh",
@@ -447,9 +427,7 @@
                 },
                 "mounts": [
                   {
-                    "input": 0,
-                    "dest": "/",
-                    "output": 0
+                    "dest": "/"
                   }
                 ]
               }
@@ -468,7 +446,7 @@
           "id": "step14",
           "op": {
             "Op": {
-              "exec": {
+              "Exec": {
                 "meta": {
                   "args": [
                     "/bin/sh",
@@ -485,9 +463,7 @@
                 },
                 "mounts": [
                   {
-                    "input": 0,
-                    "dest": "/",
-                    "output": 0
+                    "dest": "/"
                   }
                 ]
               }
@@ -506,7 +482,7 @@
           "id": "step15",
           "op": {
             "Op": {
-              "exec": {
+              "Exec": {
                 "meta": {
                   "args": [
                     "elm",
@@ -525,9 +501,7 @@
                 },
                 "mounts": [
                   {
-                    "input": 0,
-                    "dest": "/",
-                    "output": 0
+                    "dest": "/"
                   }
                 ]
               }
@@ -546,14 +520,12 @@
           "id": "step16",
           "op": {
             "Op": {
-              "file": {
+              "File": {
                 "actions": [
                   {
                     "input": -1,
-                    "secondaryInput": 0,
-                    "output": 0,
                     "Action": {
-                      "copy": {
+                      "Copy": {
                         "src": "/build/dist",
                         "dest": "/.",
                         "mode": -1,
@@ -579,11 +551,9 @@
           "id": "step17",
           "op": {
             "Op": {
-              "merge": {
+              "Merge": {
                 "inputs": [
-                  {
-                    "input": 0
-                  },
+                  {},
                   {
                     "input": 1
                   }
@@ -608,31 +578,31 @@
         }
       ],
       "digestMapping": {
-        "sha256:04e2d44979a5fbeec2ec03e0e29ef99c289af2c5e3a157197c9d2dc546fc2b55": "step2",
-        "sha256:13d6bf34a0d6a25100759bea1e09c2853504c87bf15ad27a2489c441ef0018ff": "step10",
-        "sha256:21fb3162843e0e392304917a7e0b56d7128b8901379e4d8345602c551c1426fb": "step1",
-        "sha256:25cc96605f4e6927e890b6cc721f69f87e85b15dd579b9d784c761f60ff174c4": "step12",
-        "sha256:29cb231f8242370cd03a4a635119508cfb4dcd22c6a2c89850a0b660fde08de4": "step9",
-        "sha256:2dc82aa8b6e980874d722b71739b155376e2d1363e31f9f50f537e61e1f8f3f8": "step8",
-        "sha256:443f7b63ef6859a2e62c1fe28dab1663e61be466c19f5205d4e0e542bcb6a849": "step5",
-        "sha256:48da0f6b79e3d253d518d869cc0dd9df0f6fa2d704b20167677c7f08a83c2c77": "step4",
-        "sha256:5b6af6907a2b5303f1a3557da121230142ec3b776b87a8c546adfc4b4ce26b25": "step3",
-        "sha256:62b55b16b7f4e0004acc7c8c2df72b4be1c5a62e6fa55c23a785c0b28fe461ac": "step16",
-        "sha256:6c68a65f529fccd02882638736037bfd03e03a4b9d2f44fcdc6fa1bf65d2c7e5": "step17",
-        "sha256:6c9fdede68217974e185bc27205669a51337b00eeb2c6e603d9b1bd018c3fb73": "step11",
-        "sha256:82b68b490c0fa522d7fccb8da72c1fda5d52e5de6e70598499717909d4c6e9fd": "step18",
-        "sha256:95374468c2342ceda140b438491d2c6122a5e0337eb7bf6c91fb0fe26e9d0482": "step6",
-        "sha256:9f0e70fc10159ce3a4745bfbb3a046fa4f62ec21a55d6c58728470cc4c401588": "step13",
-        "sha256:a7aa5f5904397ecf6693e2321592f50159b0ff24f2b0632e6fda4b787414eeda": "step7",
-        "sha256:ae54387c8be95aba8799069f939067fefd8a9f864de024ab1346f577774d8e13": "step0",
-        "sha256:e446c71c819c027d129dee2efb7b1524e73052400400549bea97489da430c721": "step14",
-        "sha256:ffc107cb5801f8ec90ed54788e8e000e2e934cf13bfb43b7307027a5c287358c": "step15"
+        "sha256:2718ad8c348cb0130c7d7a396bd23c510ff09179f6d393b8bdda293c7ff5a8f0": "step7",
+        "sha256:31cb51d791964892f1f6c78d57b52fe23c7a2d67b79a9768a5e82050615d22fb": "step4",
+        "sha256:341ae0af11ba1121b09e19b84d64b8831575eea1536325f26e9d9a0b3c9a5c74": "step3",
+        "sha256:3fc2e688086fe0b4428f5c77a388476fde4317c7e0458da141c9c359fca8a870": "step2",
+        "sha256:4f434c7d9119b8321764ae2d7aa2f576f2aab6e863838f8804db67f3455dbc85": "step0",
+        "sha256:50376e3bebf827f13ef35282a760ea95be0fefa60bf62a4afcd59b1014fea5f7": "step5",
+        "sha256:61af34b53266c7ade1c1c8b6b830a15ade19b171015454bf0210d6c66b3cfaa7": "step15",
+        "sha256:6243b7d1edcc3f0f971406d9786a08f820294835e07fa79fe880e00e72024b1b": "step14",
+        "sha256:808081dd5525a7d5df25871b7d858779c6a2b8786ab728298d39772b81eefb33": "step16",
+        "sha256:8368a5fd6fb32488b8d50454cc81f8f6011123e2247a2ca884dc9e2b8565d970": "step13",
+        "sha256:a0d3f0da069024441b80d9200b0eee83bf845af70b584bb5f72330885518671e": "step10",
+        "sha256:afba239842c3717e284e1feccda06f272eb16996cb941fb5c3927930ace5f9c7": "step18",
+        "sha256:c39d1922b0936510e0f249f187dbddd87c5efd1bf882ac1b7fff3a3f5b0913b9": "step1",
+        "sha256:c4921c9cc346af56f2c195294c89ff88506e6ce53240bf4b4a1a55616f5bb225": "step6",
+        "sha256:ce96622391c39f74575f6042585960bad72d46ee826ba3e5fa80ec9796bcdc0f": "step9",
+        "sha256:d850bf144c3ae4cdb769e9e9ba382636264c5c04badee556f2c81380ea52458f": "step12",
+        "sha256:dfcc15fb168f399a8e55700aad7e97655d048f72ef22a6275d7819868cd2dbcc": "step11",
+        "sha256:e579913f132a5d5f65a1d29a9c1b6cd66d9c20209ed31f562f434b78422fc577": "step17",
+        "sha256:ec22c82b6434d5a200b9d86c176a66ec908301a0959680e5662c35a2bde9068a": "step8"
       }
     },
     "metadata": {
-      "buildInvocationID": "54eoq5qbqj3jwyvwpsedudgmv",
-      "buildStartedOn": "2024-06-01T17:45:49.687427289Z",
-      "buildFinishedOn": "2024-06-01T17:45:54.537799219Z",
+      "buildInvocationID": "lhkfd2yow3dgt4fjwb9hg7u42",
+      "buildStartedOn": "2024-11-19T23:02:36.393077156Z",
+      "buildFinishedOn": "2024-11-19T23:02:40.764905349Z",
       "completeness": {
         "parameters": true,
         "environment": true,
@@ -644,7 +614,7 @@
           "localdir:context": "example",
           "localdir:dockerfile": "example",
           "localdir:fontawesome": ".",
-          "revision": "75b507688183c31b2ffe023165095862d4cf7651",
+          "revision": "e77540e01bb283fd8c17a7d410b71ad898ea9963",
           "source": "https://github.com/Lattyware/elm-fontawesome"
         },
         "source": {
@@ -982,7 +952,7 @@
                   "id": "step0",
                   "op": {
                     "Op": {
-                      "source": {
+                      "Source": {
                         "identifier": "local://dockerfile",
                         "attrs": {
                           "local.differ": "none",
@@ -1005,8 +975,8 @@
                 }
               ],
               "digestMapping": {
-                "sha256:240b874483cc105a36323ba5b827b770823ae3ea50dda83c7821fad04cfb5e67": "step0",
-                "sha256:72ab860bb0a3be7e226662b632a6891e648b6c419aefddc94c0ffb721c787a89": "step1"
+                "sha256:7a3c94e73fa4d3dd1122d3d73bc6687688d8f03eb31ae0963330b291830c41a9": "step0",
+                "sha256:d3d270ef78d7f324059951b08b09999a3ca652b6a0472f71ce5a01bfc0a7a3f7": "step1"
               }
             }
           ]
@@ -1015,9 +985,9 @@
           "step2:0": [
             [
               {
-                "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                "digest": "sha256:d25f557d7f31bf7acfac935859b5153da41d13c41f2b468d16f729a5b883634f",
-                "size": 3622094
+                "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+                "digest": "sha256:da9db072f522755cbeb85be2b3f84059b70571b229512f1571d9217b77e1087f",
+                "size": 3623904
               }
             ]
           ]
